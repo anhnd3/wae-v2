@@ -1,0 +1,41 @@
+{
+    "name": "wae-v2",
+    "version": "1.0.0",
+    "description": "WAE website with nodejs technology",
+    "main": "index.js",
+    "scripts": {
+        "start": "nodemon index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/anhnd3/wae-v2.git"
+    },
+    "keywords": [
+        "We",
+        "Are",
+        "Engineers",
+        "WAE",
+        "Tech",
+        "One"
+    ],
+    "author": "anhnd",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/anhnd3/wae-v2/issues"
+    },
+    "homepage": "https://github.com/anhnd3/wae-v2#readme",
+    "dependencies": {
+        "babel-eslint": "^7.2.3",
+        "body-parser": "^1.18.2",
+        "compression": "^1.7.1",
+        "connect-flash": "^0.1.1",
+        "ejs": "^2.5.7",
+        "eslint": "^3.19.0",
+        "express": "^4.16.2",
+        "helmet": "^3.9.0",
+        "mongoose": "^4.12.4",
+        "nodemon": "^1.12.1",
+        "request": "^2.83.0"
+    }
+}
