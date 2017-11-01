@@ -17,9 +17,8 @@ app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(flash());
-app.use('/static', express.static(path.join(__dirname, '/public'), {
-    fallthrough: false
-}));
+app.use('/statics', express.static(path.join(__dirname, '/public'), { fallthrough: false }));
+app.use('/scripts', express.static(__dirname + '/node_modules'));
 
 require('./routes/mainsiteRoutes/home')(app);
 require('./routes/adminRoutes/dashboard')(app);

@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.xtm": "html",
+        "stdexcept": "cpp",
+        "string": "cpp"
+    }
+}

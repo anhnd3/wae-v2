@@ -1,6 +1,6 @@
 module.exports = app => {
 
-    app.get('/admin', (req, res) => {
-        res.send('welcome to wae admin');
+    app.get('/waetools', (req, res) => {
+        res.render('admin/index');
     });
 };
