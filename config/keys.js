@@ -1,4 +1,8 @@
 module.exports = {
-    mongoURI: 'mongodb://localhost:27017/wae',
+    mysqlHost: 'localhost',
+    mysqlUsername: 'wae',
+    mysqlPassword: '123qwe!@#',
+    mysqlDatabase: 'wae',
+    mysqlConnectionLimit: 20,
     cookieKey: 'waeauth'
 };
