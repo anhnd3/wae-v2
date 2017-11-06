@@ -1,6 +1,6 @@
 module.exports = (app, pool) => {
 
-    app.get('/waetools', (req, res) => {
+    app.get('/adm', (req, res) => {
         res.render('admin/index');
     });
 };

@@ -12,7 +12,13 @@ var pool = mysql.createPool({
     host: keys.mysqlHost,
     user: keys.mysqlUsername,
     password: keys.mysqlPassword,
-    database: keys.mysqlDatabase
+    database: keys.mysqlDatabase,
+    typeCast: (field, next) => {
+        if (field.type == 'TINY' && field.length == 1) {
+            return (field.string() === '1'); // 1 = true, 0 = false
+        }
+        return next();
+    }
 });
 
 const app = express();
