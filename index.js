@@ -25,16 +25,16 @@ const app = express();
 app.set('view engine', 'ejs');
 app.use(compression());
 app.use(helmet());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(flash());
-app.use('/statics', express.static(path.join(__dirname, '/public'), {fallthrough: false}));
+app.use('/statics', express.static(path.join(__dirname, '/public'), { fallthrough: false }));
 app.use('/scripts', express.static(__dirname + '/node_modules'));
 
 require('./routes/mainsiteRoutes')(app, pool);
 require('./routes/adminRoutes')(app, pool);
 
 const PORT = 3000;
-app.listen(PORT, function () {
+app.listen(PORT, function() {
     console.log('Server start at port: ' + PORT);
 });

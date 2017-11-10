@@ -1,0 +1,17 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        <%= title %>
+        <small><%= smallTitle %></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <a href="/adm">
+                <i class="fa fa-dashboard"></i> Dashboard
+            </a>
+        </li>
+        <% if (!isDashboard) { %>
+        <li class="active"><%= pageTitle %></li>
+        <% } %>
+    </ol>
+</section>

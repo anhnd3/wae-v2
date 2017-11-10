@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Admin WAE | Config Page About Content</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <% include ./partials/static_header %>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        <% include ./partials/header %>
+
+        <!-- Left side column. contains the logo and sidebar -->
+        <% const dataSidebar = {
+            activeConfig: true,
+            activeConfigAbout: true
+        } %>
+        <%- include('./partials/sidebar', dataSidebar) -%>
+
+        
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <% const dataBreadcrumb = {
+                title: 'Config Page About Content',
+                smallTitle: 'Update content page about',
+                isDashboard: false,
+                pageTitle: 'Config page about content'
+            } %>
+            <%- include('./partials/breadcrumb', dataBreadcrumb) -%>
+
+            <!-- Main content -->
+            <section class="content">
+                <%
+                    let content = {};
+                    if(config && config.content) {
+                        content = JSON.parse(config.content);
+                    }
+                %>
+                <div class="row">
+                    <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Content Page About </h3>
+                            </div>
+                            <!-- /.box-header -->
+                            <!-- form start -->
+                            <form role="form" action="/adm/about-config" method="POST">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label for="aboutImgBackground">About - Image Background (1900x1280)</label>
+                                        <input type="text" class="form-control" id="aboutImgBackground" name="aboutImgBackground" placeholder="example: https://news.nationalgeographic.com/content/dam/news/photos/000/890/89070.ngsversion.1425757154489.adapt.1900.1.jpg" value="<% if(content && content.aboutImgBackground){ %><%=content.aboutImgBackground %> <% } %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="aboutBigText">About - Bigger Text</label>
+                                        <input type="text" class="form-control" id="aboutBigText" name="aboutBigText" placeholder="example: HELLO & WELCOME" value="<% if(content && content.aboutBigText){ %><%=content.aboutBigText %><% } %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="aboutSmallText">About - Smaller Text</label>
+                                        <input type="text" class="form-control" id="aboutSmallText" name="aboutSmallText" placeholder="example: WE ARE ENGINEERS" value="<% if(content && content.aboutSmallText){ %><%=content.aboutSmallText %><% } %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="skillTitle">Skill - Title</label>
+                                        <input type="text" class="form-control" id="skillTitle" name="skillTitle" placeholder="example: WELCOME TO ENGINEERS" value="<% if(content && content.skillTitle){ %><%=content.skillTitle %><% } %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="skillDescription">Skill - Description</label>
+                                        <textarea class="form-control" id="skillDescription" name="skillDescription" placeholder="example: WE ARE ENGINEERS"><% if(content && content.skillDescription){ %><%=content.skillDescription %><% } %></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="skillListing">Skill - Listing</label>
+                                        <input type="text" class="form-control" id="skillListing" name="skillListing" placeholder="example: Training-70,Outsourcing-60" value="<% if(content && content.skillListing){ %><%=content.skillListing %><% } %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="presentationVideo">Presentation - Video Popup Youtube</label>
+                                        <input type="text" class="form-control" id="presentationVideo" name="presentationVideo" placeholder="example: https://www.youtube.com/watch?v=8DCSoUSyoz8" value="<% if(content && content.presentationVideo){ %><%=content.presentationVideo %><% } %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="presentationImgBackground">Presentation - Image Background (1900x1280)</label>
+                                        <input type="text" class="form-control" id="presentationImgBackground" name="presentationImgBackground" placeholder="example: https://news.nationalgeographic.com/content/dam/news/photos/000/890/89070.ngsversion.1425757154489.adapt.1900.1.jpg" value="<% if(content && content.presentationImgBackground){ %><%=content.presentationImgBackground %><% } %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="presentationBigText">Presentation - Bigger Text</label>
+                                        <input type="text" class="form-control" id="presentationBigText" name="presentationBigText" placeholder="example: PRESENTATION" value="<% if(content && content.presentationBigText){ %><%=content.presentationBigText %><% } %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="presentationSmallText">Presentation - Smaller Text</label>
+                                        <input type="text" class="form-control" id="presentationSmallText" name="presentationSmallText" placeholder="example: WATCH THE VIDEO ABOUT OUR NEW PRODUCTS" value="<% if(content && content.presentationSmallText){ %><%=content.presentationSmallText %><% } %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="about2ImgBackground">About 2 - Image Background (960x1080)</label>
+                                        <input type="text" class="form-control" id="about2ImgBackground" name="about2ImgBackground" placeholder="example: https://news.nationalgeographic.com/content/dam/news/photos/000/890/89070.ngsversion.1425757154489.adapt.1900.1.jpg" value="<% if(content && content.about2ImgBackground){ %><%=content.about2ImgBackground %> <% } %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="about2Title">About 2- Title</label>
+                                        <input type="text" class="form-control" id="about2Title" name="about2Title" placeholder="example: HELLO & WELCOME" value="<% if(content && content.about2Title){ %><%=content.about2Title %><% } %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="about2Content">About 2- Content</label>
+                                        <textarea class="form-control" id="about2Content" name="about2Content" placeholder="example: WE ARE ENGINEERS"><% if(content && content.about2Content){ %><%=content.about2Content %><% } %></textarea>
+                                    </div>
+                                </div>
+                                <!-- /.box-body -->
+
+                                <div class="box-footer">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Version</b> 1.0.0
+            </div>
+            <strong>Copyright &copy;
+               <%=(new Date()).getFullYear(); %>.</strong> All rights reserved.
+        </footer>
+    </div>
+    <!-- ./wrapper -->
+    <% include ./partials/static_footer %>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            CKEDITOR.replace('skillDescription', {
+                height: 100
+            });
+            CKEDITOR.replace('about2Content', {
+                height: 300
+            });
+        });
+    </script>
+</body>
+
+</html>
