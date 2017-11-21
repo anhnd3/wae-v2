@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Admin WAE | Config Page About Content</title>
+    <title>Admin WAE | Partner Detail</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <% include ./partials/static_header %>
@@ -16,8 +16,7 @@
 
         <!-- Left side column. contains the logo and sidebar -->
         <% const dataSidebar = {
-            activeConfig: true,
-            activeConfigContact: true
+            activeTeam: true
         } %>
         <%- include('./partials/sidebar', dataSidebar) -%>
 
@@ -25,10 +24,10 @@
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <% const dataBreadcrumb = {
-                title: 'Config Page Contact Content',
-                smallTitle: 'Update content page contact',
+                title: 'Team Details',
+                smallTitle: 'Insert/Update Information',
                 isDashboard: false,
-                pageTitle: 'Config page contact content'
+                pageTitle: 'Config information of partner'
             } %>
             <%- include('./partials/breadcrumb', dataBreadcrumb) -%>
 
@@ -36,31 +35,42 @@
             <section class="content">
                 <%
                     let content = {};
-                    if(locals.config && locals.config.content) {
-                        content = JSON.parse(config.content);
+                    if(locals.member) {
+                        content = member;
                     }
                 %>
                 <div class="row">
                     <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12">
                         <div class="box box-primary">
                             <div class="box-header with-border">
-                                <h3 class="box-title">Content Page About </h3>
+                                <h3 class="box-title">Partner Information </h3>
                             </div>
                             <!-- /.box-header -->
                             <!-- form start -->
-                            <form role="form" action="/adm/config/contact" method="POST">
+                            <form role="form" action="/adm/partners/details" method="POST">
                                 <div class="box-body">
                                     <div class="form-group">
-                                        <label for="contactImgBackground">Contact - Image Background (1900x1280)</label>
-                                        <input type="text" class="form-control" id="contactImgBackground" name="contactImgBackground" placeholder="example: https://news.nationalgeographic.com/content/dam/news/photos/000/890/89070.ngsversion.1425757154489.adapt.1900.1.jpg" value="<%=(content && content.contactImgBackground)?content.contactImgBackground:"" %>">
+                                        <label for="name">Name</label>
+                                        <input type="text" class="form-control" id="name" name="name" value="<%=(content && content.name)?content.name:"" %>">
+                                        <input type="hidden" class="form-control" id="partnerId" name="partnerId" value="<%=(content && content.id)?content.id:0 %>">
                                     </div>
                                     <div class="form-group">
-                                        <label for="contactBigText">Contact - Bigger Text</label>
-                                        <input type="text" class="form-control" id="contactBigText" name="contactBigText" placeholder="example: HELLO & WELCOME" value="<%=(content && content.contactBigText)?content.contactBigText:"" %>">
+                                        <label for="logo">Logo (400x300)</label>
+                                        <input type="text" class="form-control" id="logo" name="logo" value="<%=(content && content.logo)?content.logo:"" %>">
+                                        <img src="<%=(content && content.logo)?content.logo:"" %>" title="Logo">
                                     </div>
                                     <div class="form-group">
-                                        <label for="contactSmallText">Contact - Smaller Text</label>
-                                        <input type="text" class="form-control" id="contactSmallText" name="contactSmallText" placeholder="example: WE ARE ENGINEERS" value="<%=(content && content.contactSmallText)?content.contactSmallText:"" %>">
+                                        <label for="website">Website</label>
+                                        <input type="text" class="form-control" id="website" name="website" value="<%=(content && content.website)?content.website:"" %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">Description</label>
+                                        <textarea class="form-control" id="description" name="description" row="3"><%=(content && content.description)?content.description:"" %></textarea>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" id="status" name="status" <%=(content && content.status)?"checked":"" %>> Active
+                                        </label>
                                     </div>
                                 </div>
                                 <!-- /.box-body -->
@@ -82,7 +92,7 @@
                 <b>Version</b> 1.0.0
             </div>
             <strong>Copyright &copy;
-               <%=(new Date()).getFullYear(); %>.</strong> All rights reserved.
+               <%=(new Date()).getFullYear();%>.</strong> All rights reserved.
         </footer>
     </div>
     <!-- ./wrapper -->

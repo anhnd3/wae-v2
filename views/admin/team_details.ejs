@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Admin WAE | Teams Detail</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <% include ./partials/static_header %>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        <% include ./partials/header %>
+
+        <!-- Left side column. contains the logo and sidebar -->
+        <% const dataSidebar = {
+            activeTeam: true
+        } %>
+        <%- include('./partials/sidebar', dataSidebar) -%>
+
+        
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <% const dataBreadcrumb = {
+                title: 'Team Details',
+                smallTitle: 'Insert/Update Information',
+                isDashboard: false,
+                pageTitle: 'Config information of member'
+            } %>
+            <%- include('./partials/breadcrumb', dataBreadcrumb) -%>
+
+            <!-- Main content -->
+            <section class="content">
+                <%
+                    let content = {};
+                    if(locals.member) {
+                        content = member;
+                    }
+                %>
+                <div class="row">
+                    <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Member Information </h3>
+                            </div>
+                            <!-- /.box-header -->
+                            <!-- form start -->
+                            <form role="form" action="/adm/teams/details" method="POST">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label for="memberId">Fullname</label>
+                                        <input type="text" class="form-control" id="fullName" name="fullName" value="<%=(content && content.fullName)?content.fullName:"" %>">
+                                        <input type="hidden" class="form-control" id="memberId" name="memberId" value="<%=(content && content.id)?content.id:0 %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="title">Title</label>
+                                        <input type="text" class="form-control" id="title" name="title" value="<%=(content && content.title)?content.title:"" %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="avatar">Avatar (500x680)</label>
+                                        <input type="text" class="form-control" id="avatar" name="avatar" value="<%=(content && content.avatar)?content.avatar:"" %>">
+                                        <img style="width: 100px; height: 136px" src="<%=(content && content.avatar)?content.avatar:"" %>" title="Avatar">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="shortDescription">Short Description</label>
+                                        <textarea class="form-control" id="shortDescription" name="shortDescription" row="3"><%=(content && content.shortDescription)?content.shortDescription:"" %></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="facebook">Account Facebook</label>
+                                        <input type="text" class="form-control" id="facebook" name="facebook" value="<%=(content && content.facebook)?content.facebook:"" %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="linkedin">Account LinkedIn</label>
+                                        <input type="text" class="form-control" id="linkedin" name="linkedin" value="<%=(content && content.linkedin)?content.linkedin:"" %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="skype">Account Skype</label>
+                                        <input type="text" class="form-control" id="skype" name="skype" value="<%=(content && content.skype)?content.skype:"" %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="text" class="form-control" id="email" name="email" value="<%=(content && content.email)?content.email:"" %>">
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" id="status" name="status" <%=(content && content.status)?"checked":"" %>> Active
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- /.box-body -->
+
+                                <div class="box-footer">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Version</b> 1.0.0
+            </div>
+            <strong>Copyright &copy;
+               <%=(new Date()).getFullYear();%>.</strong> All rights reserved.
+        </footer>
+    </div>
+    <!-- ./wrapper -->
+    <% include ./partials/static_footer %>
+</body>
+
+</html>

@@ -12,12 +12,9 @@
         "url": "git+https://github.com/anhnd3/wae-v2.git"
     },
     "keywords": [
-        "We",
-        "Are",
-        "Engineers",
+        "We Are Engineers",
         "WAE",
-        "Tech",
-        "One"
+        "TechOne"
     ],
     "author": "anhnd",
     "license": "ISC",
@@ -26,15 +23,16 @@
     },
     "homepage": "https://github.com/anhnd3/wae-v2#readme",
     "dependencies": {
-        "babel-eslint": "^7.2.3",
+        "async": "^2.6.0",
         "body-parser": "^1.18.2",
         "bootstrap": "^3.3.7",
         "bootstrap-colorpicker": "^2.5.2",
         "bootstrap-datepicker": "^1.7.1",
         "bootstrap-daterangepicker": "^2.1.25",
-        "bootstrap-slider": "^9.9.0",
+        "bootstrap-slider": "^9.10.0",
         "bootstrap-timepicker": "^0.5.2",
         "ckeditor": "^4.7.3",
+        "client-sessions": "^0.8.0",
         "compression": "^1.7.1",
         "connect-flash": "^0.1.1",
         "datatable": "^2.0.2",
@@ -47,7 +45,7 @@
         "ionicons": "^3.0.0",
         "jquery": "^3.2.1",
         "jquery-knob": "^1.2.11",
-        "moment": "^2.19.1",
+        "md5": "^2.2.1",
         "morris.js": "^0.5.0",
         "mysql": "^2.15.0",
         "nodemon": "^1.12.1",

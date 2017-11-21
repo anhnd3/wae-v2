@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Admin WAE | Course Detail</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <% include ./partials/static_header %>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        <% include ./partials/header %>
+
+        <!-- Left side column. contains the logo and sidebar -->
+        <% const dataSidebar = {
+            activeCourse: true
+        } %>
+        <%- include('./partials/sidebar', dataSidebar) -%>
+
+        
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <% const dataBreadcrumb = {
+                title: 'Course Details',
+                smallTitle: 'Insert/Update Information',
+                isDashboard: false,
+                pageTitle: 'Config information of course'
+            } %>
+            <%- include('./partials/breadcrumb', dataBreadcrumb) -%>
+
+            <!-- Main content -->
+            <section class="content">
+                <%
+                    let content = {};
+                    let teachers = [];
+                    if(locals.course) {
+                        content = locals.course;
+                    }
+                    if(locals.teams) {
+                        teachers= locals.teams
+                    }
+                %>
+                <div class="row">
+                    <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Course Information </h3>
+                            </div>
+                            <!-- /.box-header -->
+                            <!-- form start -->
+                            <form role="form" action="/adm/courses/details" method="POST">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label for="title">Title</label>
+                                        <input type="text" class="form-control" id="title" name="title" value="<%=(content && content.title)?content.title:"" %>">
+                                        <input type="hidden" class="form-control" id="id" name="id" value="<%=(content && content.id)?content.id:0 %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="title">Class Type</label>
+                                        
+                                        <select class="form-control" id="classType" name="classType">
+                                            <option <%=(content && content.classType == 1)?"selected":"" %> value="1">Arduino cơ bản</option>
+                                            <option <%=(content && content.classType == 2)?"selected":"" %> value="2">Arduino trong IoT</option>
+                                            <option <%=(content && content.classType == 3)?"selected":"" %> value="3">STEAM</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="teacher">Teacher</label>
+                                        <select class="form-control select2" id="teacher" name="teacher">
+                                            <% teachers.forEach(teacher => { %>
+                                                <option <%=(content && content.teacher == teacher.id)?"selected":"" %> value="<%=teacher.id%>"><%=teacher.fullName%></option>
+                                            <% }); %>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="thumbnail">Thumbnail (800x460)</label>
+                                        <input type="text" class="form-control" id="thumbnail" name="thumbnail" value="<% if(content && content.thumbnail){ %><%=content.thumbnail %><% } %>">
+                                        <img src="<%=(content && content.thumbnail)?content.thumbnail:"" %>" title="Avatar">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="shortDescription">Short Description</label>
+                                        <textarea class="form-control" id="shortDescription" name="shortDescription"><%=(content && content.shortDescription)?content.shortDescription:"" %></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="content">Content</label>
+                                        <textarea class="form-control" id="content" name="content"><%=(content && content.content)?content.content:"" %></textarea>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" id="status" name="status" <%=(content && content.status)?"checked":"" %>> Active
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- /.box-body -->
+
+                                <div class="box-footer">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Version</b> 1.0.0
+            </div>
+            <strong>Copyright &copy;
+               <%=(new Date()).getFullYear();%>.</strong> All rights reserved.
+        </footer>
+    </div>
+    <!-- ./wrapper -->
+    <% include ./partials/static_footer %>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            CKEDITOR.replace('shortDescription', {
+                height: 100
+            });
+            CKEDITOR.replace('content', {
+                height: 600
+            });
+            $('.select2').select2();
+        });
+    </script>
+</body>
+
+</html>

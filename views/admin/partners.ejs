@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Admin WAE | Partners WAE</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <% include ./partials/static_header %>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        <% include ./partials/header %>
+
+        <!-- Left side column. contains the logo and sidebar -->
+        <% const dataSidebar = {
+            activePartners: true
+        } %>
+        <%- include('./partials/sidebar', dataSidebar) -%>
+
+        
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <% const dataBreadcrumb = {
+                title: 'Partners WAE',
+                smallTitle: 'Partners of WAE',
+                isDashboard: false,
+                pageTitle: 'Partners WAE'
+            } %>
+            <%- include('./partials/breadcrumb', dataBreadcrumb) -%>
+
+            <!-- Main content -->
+            <section class="content">
+                <%
+                    let content = [];
+                    if(locals.partners) {
+                        content = locals.partners;
+                    }
+                %>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">List partners</h3>
+                                <div class="box-tools">
+                                    <a href="/adm/partners/details/0"><button type="button" class="btn btn-block btn-primary btn-sm">Add</button></a>
+                                </div>
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body no-padding">
+                                <table class="table table-striped">
+                                    <tbody>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Logo</th>
+                                            <th>Website</th>
+                                            <th>Description</th>
+                                            <th>Status</th>
+                                        </tr>
+                                        <% content.forEach(partner => { %>
+                                            <tr>
+                                                <td>
+                                                    <%=partner.id%> | 
+                                                    <a href="/adm/partners/details/<%=partner.id%>"><i class="fa fa-edit"></i></a> | 
+                                                    <a href="/adm/partners/delete/<%=partner.id%>" onclick="return confirm('Do you want to remove partner: <%=partner.name%>')"><i class="fa fa-trash"></i></a>
+                                                </td>
+                                                <td><%=partner.name%></td>
+                                                <td> <img src="<%=partner.logo%>" style="width: 40px; height: 30px;" title="logo size (400x300)"></td>
+                                                <td><a href="<%=partner.website%>" target="_blank"><i class="fa fa-chrome"></i></a></td>
+                                                <td><%=partner.description%></td>
+                                                <td><%=(partner.status)?"Active":"Inactive" %></td>
+                                            </tr>
+                                        <% }); %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Version</b> 1.0.0
+            </div>
+            <strong>Copyright &copy;
+               <%=(new Date()).getFullYear(); %>.</strong> All rights reserved.
+        </footer>
+    </div>
+    <!-- ./wrapper -->
+    <% include ./partials/static_footer %>
+</body>
+
+</html>

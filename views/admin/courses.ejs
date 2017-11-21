@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Admin WAE | Courses WAE</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <% include ./partials/static_header %>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        <% include ./partials/header %>
+
+        <!-- Left side column. contains the logo and sidebar -->
+        <% const dataSidebar = {
+            activeCourse: true
+        } %>
+        <%- include('./partials/sidebar', dataSidebar) -%>
+
+        
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <% const dataBreadcrumb = {
+                title: 'Courses at WAE',
+                smallTitle: 'Information course at WAE',
+                isDashboard: false,
+                pageTitle: 'Courses at WAE'
+            } %>
+            <%- include('./partials/breadcrumb', dataBreadcrumb) -%>
+
+            <!-- Main content -->
+            <section class="content">
+                <%
+                    let content = [];
+                    if(locals.courses) {
+                        content = courses;
+                    }
+                %>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">List courses</h3>
+                                <div class="box-tools">
+                                    <a href="/adm/courses/details/0"><button type="button" class="btn btn-block btn-primary btn-sm">Add</button></a>
+                                </div>
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body no-padding">
+                                <table class="table table-striped">
+                                    <tbody>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Title</th>
+                                            <th>Class Type</th>
+                                            <th>Thumbnail</th>
+                                            <th>Teacher</th>
+                                            <th>Status</th>
+                                        </tr>
+                                        <% content.forEach(course => { %>
+                                            <tr>
+                                                <td>
+                                                    <%=course.id%> | 
+                                                    <a href="/adm/courses/details/<%=course.id%>"><i class="fa fa-edit"></i></a> | 
+                                                    <a href="/adm/courses/delete/<%=course.id%>" onclick="return confirm('Do you want to remove course: <%=course.title%>')"><i class="fa fa-trash"></i></a>
+                                                </td>
+                                                <td><%=course.title%></td>
+                                                <td>
+                                                    <% switch (course.classType) {
+                                                        case 1 : %>
+                                                                Arduino cơ bản
+                                                                <% break;
+                                                        case 2 : %>
+                                                                Arduino trong IoT
+                                                                <% break;
+                                                        case 3 : %>
+                                                                STEAM
+                                                                <% break;
+                                                        } %>
+                                                </td>
+                                                <td> <img src="<%=course.thumbnail%>" style="width: 80px; height: 46px;" title="avatar size (800x460)"></td>
+                                                <td><%=course.teacher%></td>
+                                                <td><%=(course.status)?"Active":"Inactive" %></td>
+                                            </tr>
+                                        <% }); %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Version</b> 1.0.0
+            </div>
+            <strong>Copyright &copy;
+               <%=(new Date()).getFullYear(); %>.</strong> All rights reserved.
+        </footer>
+    </div>
+    <!-- ./wrapper -->
+    <% include ./partials/static_footer %>
+</body>
+
+</html>

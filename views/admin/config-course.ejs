@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Admin WAE | Config Page About Content</title>
+    <title>Admin WAE | Config Page Course Content</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <% include ./partials/static_header %>
@@ -17,7 +17,7 @@
         <!-- Left side column. contains the logo and sidebar -->
         <% const dataSidebar = {
             activeConfig: true,
-            activeConfigContact: true
+            activeConfigCourse: true
         } %>
         <%- include('./partials/sidebar', dataSidebar) -%>
 
@@ -25,10 +25,10 @@
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <% const dataBreadcrumb = {
-                title: 'Config Page Contact Content',
-                smallTitle: 'Update content page contact',
+                title: 'Config Page Course Content',
+                smallTitle: 'Update content page course',
                 isDashboard: false,
-                pageTitle: 'Config page contact content'
+                pageTitle: 'Config page course content'
             } %>
             <%- include('./partials/breadcrumb', dataBreadcrumb) -%>
 
@@ -44,23 +44,23 @@
                     <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12">
                         <div class="box box-primary">
                             <div class="box-header with-border">
-                                <h3 class="box-title">Content Page About </h3>
+                                <h3 class="box-title">Content Page Course </h3>
                             </div>
                             <!-- /.box-header -->
                             <!-- form start -->
-                            <form role="form" action="/adm/config/contact" method="POST">
+                            <form role="form" action="/adm/config/course" method="POST">
                                 <div class="box-body">
                                     <div class="form-group">
-                                        <label for="contactImgBackground">Contact - Image Background (1900x1280)</label>
-                                        <input type="text" class="form-control" id="contactImgBackground" name="contactImgBackground" placeholder="example: https://news.nationalgeographic.com/content/dam/news/photos/000/890/89070.ngsversion.1425757154489.adapt.1900.1.jpg" value="<%=(content && content.contactImgBackground)?content.contactImgBackground:"" %>">
+                                        <label for="courseImgBackground">Course - Image Background (1900x1280)</label>
+                                        <input type="text" class="form-control" id="courseImgBackground" name="courseImgBackground" placeholder="example: https://news.nationalgeographic.com/content/dam/news/photos/000/890/89070.ngsversion.1425757154489.adapt.1900.1.jpg" value="<%=(content && content.courseImgBackground)?content.courseImgBackground:"" %>">
                                     </div>
                                     <div class="form-group">
-                                        <label for="contactBigText">Contact - Bigger Text</label>
-                                        <input type="text" class="form-control" id="contactBigText" name="contactBigText" placeholder="example: HELLO & WELCOME" value="<%=(content && content.contactBigText)?content.contactBigText:"" %>">
+                                        <label for="courseBigText">Course - Bigger Text</label>
+                                        <input type="text" class="form-control" id="courseBigText" name="courseBigText" placeholder="example: HELLO & WELCOME" value="<%=(content && content.courseBigText)?content.courseBigText:"" %>">
                                     </div>
                                     <div class="form-group">
-                                        <label for="contactSmallText">Contact - Smaller Text</label>
-                                        <input type="text" class="form-control" id="contactSmallText" name="contactSmallText" placeholder="example: WE ARE ENGINEERS" value="<%=(content && content.contactSmallText)?content.contactSmallText:"" %>">
+                                        <label for="courseSmallText">Course - Smaller Text</label>
+                                        <input type="text" class="form-control" id="courseSmallText" name="courseSmallText" placeholder="example: WE ARE ENGINEERS" value="<%=(content && content.courseSmallText)?content.courseSmallText:"" %>">
                                     </div>
                                 </div>
                                 <!-- /.box-body -->

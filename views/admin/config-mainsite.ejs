@@ -36,7 +36,7 @@
             <section class="content">
                 <%
                     let content = {};
-                    if(config && config.content) {
+                    if(locals.config && locals.config.content) {
                         content = JSON.parse(config.content);
                     }
                 %>
@@ -48,47 +48,47 @@
                             </div>
                             <!-- /.box-header -->
                             <!-- form start -->
-                            <form role="form" action="/adm/mainsite-config" method="POST">
+                            <form role="form" action="/adm/config/mainsite" method="POST">
                                 <div class="box-body">
                                     <div class="form-group">
                                         <label for="introduceVideo">Introduce - Video Background Youtube</label>
-                                        <input type="text" class="form-control" id="introduceVideo" name="introduceVideo" placeholder="example: https://www.youtube.com/watch?v=8DCSoUSyoz8" value="<% if(content && content.introduceVideo){ %><%=content.introduceVideo %><% } %>">
+                                        <input type="text" class="form-control" id="introduceVideo" name="introduceVideo" placeholder="example: https://www.youtube.com/watch?v=8DCSoUSyoz8" value="<%=(content && content.introduceVideo)?content.introduceVideo:""%>">
                                     </div>
                                     <div class="form-group">
                                         <label for="introduceImgBackground">Introduce - Image Background (1900x1280)</label>
-                                        <input type="text" class="form-control" id="introduceImgBackground" name="introduceImgBackground" placeholder="example: https://news.nationalgeographic.com/content/dam/news/photos/000/890/89070.ngsversion.1425757154489.adapt.1900.1.jpg" value="<% if(content && content.introduceImgBackground){ %><%=content.introduceImgBackground %> <% } %>">
+                                        <input type="text" class="form-control" id="introduceImgBackground" name="introduceImgBackground" placeholder="example: https://news.nationalgeographic.com/content/dam/news/photos/000/890/89070.ngsversion.1425757154489.adapt.1900.1.jpg" value="<%=(content && content.introduceImgBackground)?content.introduceImgBackground:""%>">
                                     </div>
                                     <div class="form-group">
                                         <label for="introduceBigText">Introduce - Bigger Text</label>
-                                        <input type="text" class="form-control" id="introduceBigText" name="introduceBigText" placeholder="example: HELLO & WELCOME" value="<% if(content && content.introduceBigText){ %><%=content.introduceBigText %><% } %>">
+                                        <input type="text" class="form-control" id="introduceBigText" name="introduceBigText" placeholder="example: HELLO & WELCOME" value="<%=(content && content.introduceBigText)?content.introduceBigText:"" %>">
                                     </div>
                                     <div class="form-group">
                                         <label for="introduceSmallText">Introduce - Smaller Text</label>
-                                        <input type="text" class="form-control" id="introduceSmallText" name="introduceSmallText" placeholder="example: WE ARE ENGINEERS" value="<% if(content && content.introduceSmallText){ %><%=content.introduceSmallText %><% } %>">
+                                        <input type="text" class="form-control" id="introduceSmallText" name="introduceSmallText" placeholder="example: WE ARE ENGINEERS" value="<%=(content && content.introduceSmallText)?content.introduceSmallText:"" %>">
                                     </div>
                                     <div class="form-group">
                                         <label for="aboutBigText">About - Bigger Text</label>
-                                        <input type="text" class="form-control" id="aboutBigText" name="aboutBigText" placeholder="example: WELCOME TO ENGINEERS" value="<% if(content && content.aboutBigText){ %><%=content.aboutBigText %><% } %>">
+                                        <input type="text" class="form-control" id="aboutBigText" name="aboutBigText" placeholder="example: WELCOME TO ENGINEERS" value="<%=(content && content.aboutBigText)?content.aboutBigText:"" %>">
                                     </div>
                                     <div class="form-group">
                                         <label for="aboutSmallText">About - Smaller Text</label>
-                                        <input type="text" class="form-control" id="aboutSmallText" name="aboutSmallText" placeholder="example: About/Slogan/..." value="<% if(content && content.aboutSmallText){ %><%=content.aboutSmallText %><% } %>">
+                                        <input type="text" class="form-control" id="aboutSmallText" name="aboutSmallText" placeholder="example: About/Slogan/..." value="<%=(content && content.aboutSmallText)?content.aboutSmallText:"" %>">
                                     </div>
                                     <div class="form-group">
                                         <label for="presentationVideo">Presentation - Video Popup Youtube</label>
-                                        <input type="text" class="form-control" id="presentationVideo" name="presentationVideo" placeholder="example: https://www.youtube.com/watch?v=8DCSoUSyoz8" value="<% if(content && content.presentationVideo){ %><%=content.presentationVideo %><% } %>">
+                                        <input type="text" class="form-control" id="presentationVideo" name="presentationVideo" placeholder="example: https://www.youtube.com/watch?v=8DCSoUSyoz8" value="<%=(content && content.presentationVideo)?content.presentationVideo:"" %>">
                                     </div>
                                     <div class="form-group">
                                         <label for="presentationImgBackground">Presentation - Image Background (1900x1280)</label>
-                                        <input type="text" class="form-control" id="presentationImgBackground" name="presentationImgBackground" placeholder="example: https://news.nationalgeographic.com/content/dam/news/photos/000/890/89070.ngsversion.1425757154489.adapt.1900.1.jpg" value="<% if(content && content.presentationImgBackground){ %><%=content.presentationImgBackground %><% } %>">
+                                        <input type="text" class="form-control" id="presentationImgBackground" name="presentationImgBackground" placeholder="example: https://news.nationalgeographic.com/content/dam/news/photos/000/890/89070.ngsversion.1425757154489.adapt.1900.1.jpg" value="<%=(content && content.presentationImgBackground)?content.presentationImgBackground:"" %>">
                                     </div>
                                     <div class="form-group">
                                         <label for="presentationBigText">Presentation - Bigger Text</label>
-                                        <input type="text" class="form-control" id="presentationBigText" name="presentationBigText" placeholder="example: PRESENTATION" value="<% if(content && content.presentationBigText){ %><%=content.presentationBigText %><% } %>">
+                                        <input type="text" class="form-control" id="presentationBigText" name="presentationBigText" placeholder="example: PRESENTATION" value="<%=(content && content.presentationBigText)?content.presentationBigText:"" %>">
                                     </div>
                                     <div class="form-group">
                                         <label for="presentationSmallText">Presentation - Smaller Text</label>
-                                        <input type="text" class="form-control" id="presentationSmallText" name="presentationSmallText" placeholder="example: WATCH THE VIDEO ABOUT OUR NEW PRODUCTS" value="<% if(content && content.presentationSmallText){ %><%=content.presentationSmallText %><% } %>">
+                                        <input type="text" class="form-control" id="presentationSmallText" name="presentationSmallText" placeholder="example: WATCH THE VIDEO ABOUT OUR NEW PRODUCTS" value="<%=(content && content.presentationSmallText)?content.presentationSmallText:"" %>">
                                     </div>
                                 </div>
                                 <!-- /.box-body -->
