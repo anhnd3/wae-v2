@@ -2,26 +2,30 @@
 Document Title
 =============================================
 -->
-<title><%=(locals.title)?locals.title:""%></title>
+<title><%=(locals.config.titlePage)?locals.config.titlePage:""%></title>
+<meta name="description" content="<%=(locals.config.descriptionPage)?locals.config.descriptionPage:""%>" />
+<meta name="keywords" content="<%=(locals.config.keywordsPage)?locals.config.keywordsPage:""%>" />
+
+<meta http-equiv="Pragma" content="no-cache">
 <!--  
 Favicons
 =============================================
 -->
-<link rel="apple-touch-icon" sizes="57x57" href="/statics/mainsite/images/favicons/apple-icon-57x57.png">
-<link rel="apple-touch-icon" sizes="60x60" href="/statics/mainsite/images/favicons/apple-icon-60x60.png">
-<link rel="apple-touch-icon" sizes="72x72" href="/statics/mainsite/images/favicons/apple-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="76x76" href="/statics/mainsite/images/favicons/apple-icon-76x76.png">
-<link rel="apple-touch-icon" sizes="114x114" href="/statics/mainsite/images/favicons/apple-icon-114x114.png">
-<link rel="apple-touch-icon" sizes="120x120" href="/statics/mainsite/images/favicons/apple-icon-120x120.png">
-<link rel="apple-touch-icon" sizes="144x144" href="/statics/mainsite/images/favicons/apple-icon-144x144.png">
-<link rel="apple-touch-icon" sizes="152x152" href="/statics/mainsite/images/favicons/apple-icon-152x152.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/statics/mainsite/images/favicons/apple-icon-180x180.png">
-<link rel="icon" type="image/png" sizes="192x192" href="/statics/mainsite/images/favicons/android-icon-192x192.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/statics/mainsite/images/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="96x96" href="/statics/mainsite/images/favicons/favicon-96x96.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/statics/mainsite/images/favicons/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="57x57" href="<%=(locals.config.icon57)?locals.config.icon57:""%>">
+<link rel="apple-touch-icon" sizes="60x60" href="<%=(locals.config.icon60)?locals.config.icon60:""%>">
+<link rel="apple-touch-icon" sizes="72x72" href="<%=(locals.config.icon72)?locals.config.icon72:""%>">
+<link rel="apple-touch-icon" sizes="76x76" href="<%=(locals.config.icon76)?locals.config.icon76:""%>">
+<link rel="apple-touch-icon" sizes="114x114" href="<%=(locals.config.icon114)?locals.config.icon114:""%>">
+<link rel="apple-touch-icon" sizes="120x120" href="<%=(locals.config.icon120)?locals.config.icon120:""%>">
+<link rel="apple-touch-icon" sizes="144x144" href="<%=(locals.config.icon144)?locals.config.icon144:""%>">
+<link rel="apple-touch-icon" sizes="152x152" href="<%=(locals.config.icon152)?locals.config.icon152:""%>">
+<link rel="apple-touch-icon" sizes="180x180" href="<%=(locals.config.icon180)?locals.config.icon180:""%>">
+<link rel="icon" type="image/png" sizes="192x192" href="<%=(locals.config.icon192)?locals.config.icon192:""%>">
+<link rel="icon" type="image/png" sizes="32x32" href="<%=(locals.config.icon32)?locals.config.icon32:""%>">
+<link rel="icon" type="image/png" sizes="96x96" href="<%=(locals.config.icon96)?locals.config.icon96:""%>">
+<link rel="icon" type="image/png" sizes="16x16" href="<%=(locals.config.icon16)?locals.config.icon16:""%>">
 <meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-TileImage" content="/statics/mainsite/images/favicons/ms-icon-144x144.png">
+<meta name="msapplication-TileImage" content="<%=(locals.config.icon144)?locals.config.icon144:""%>">
 <meta name="theme-color" content="#ffffff">
 <!--  
 Stylesheets

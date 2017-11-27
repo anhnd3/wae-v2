@@ -26,7 +26,7 @@ var pool = mysql.createPool({
 const app = express();
 app.set('view engine', 'ejs');
 app.use(compression());
-app.use(helmet());
+app.use(helmet.noCache());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(flash());

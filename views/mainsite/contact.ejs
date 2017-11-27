@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <% include ./partials/header %>
+</head>
+
+<body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+    <%
+        let content = {};
+        
+        if (locals.config) {
+            content = JSON.parse(locals.config);
+        }
+    %>
+    <main>
+        <div class="page-loader">
+            <div class="loader">Loading...</div>
+        </div>
+
+        <!-- Navigation start -->
+        <% include ./partials/navigation %>
+        <!-- Navigation end -->
+
+        <div class="main">
+            <!-- Text start -->
+             <section class="module bg-dark-60 about-page-header" data-background="<%=(content && content.contactImgBackground)?content.contactImgBackground:""%>">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <h2 class="module-title font-alt"><%=(content && content.contactBigText)?content.contactBigText:""%></h2>
+                            <div class="module-subtitle font-serif"><%=(content && content.contactSmallText)?content.contactSmallText:""%></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Text end --> 
+
+            <!-- Form message Start -->
+            <section class="module">
+                <div class="container">
+                    <div class="col-sm-6 col-sm-offset-3">
+                        <h2 class="module-title font-alt">Contact us</h2>
+                        <div class="module-subtitle font-serif"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <form id="contactForm" role="form" method="post" action="php/contact.php">
+                                <div class="form-group">
+                                    <label class="sr-only" for="name">Name</label>
+                                    <input class="form-control" type="text" id="name" name="name" placeholder="Your Name*" required="required" data-validation-required-message="Please enter your name."/>
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="email">Email</label>
+                                    <input class="form-control" type="email" id="email" name="email" placeholder="Your Email*" required="required" data-validation-required-message="Please enter your email address."/>
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="7" id="message" name="message" placeholder="Your Message*" required="required" data-validation-required-message="Please enter your message."></textarea>
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                                <div class="text-center">
+                                    <button class="btn btn-block btn-round btn-d" id="cfsubmit" type="submit">Submit</button>
+                                </div>
+                            </form>
+                            <div class="ajax-response font-alt" id="contactFormResponse"></div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="alt-features-item mt-0">
+                                <div class="alt-features-icon"><span class="icon-megaphone"></span></div>
+                                    <h3 class="alt-features-title font-alt">Where to meet</h3>Titan Company<br/>23 Greate Street<br/>Los Angeles, 12345 LS
+                                </div>
+                                <div class="alt-features-item mt-xs-60">
+                                    <div class="alt-features-icon"><span class="icon-map"></span></div>
+                                    <h3 class="alt-features-title font-alt">Say Hello</h3>Email: somecompany@example.com<br/>Phone: +1 234 567 89 10
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Form message End -->
+
+            <!-- Google Map Start -->
+            <section id="map-section">
+                <div id="map" style="height:100%; width: 100%"></div>
+            </section>
+            <!-- Google Map End -->
+
+            <!-- footer start -->
+            <footer class="footer bg-dark">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <p class="copyright font-alt">&copy; <%=new Date().getFullYear();%>&nbsp;<a href="/">WE ARE ENGINEERS</a>, All Rights Reserved</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="footer-social-links"><a href="https://www.facebook.com/waeVN" target="_blank"><i class="fa fa-facebook"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- footer end -->
+        </div>
+        <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
+    </main>
+    <!--  
+    JavaScripts
+    =============================================
+    -->
+    <% include ./partials/static_footer%>
+    <script type="text/javascript">
+        let map;
+        let infowindow;
+        function initMap() {
+            infowindow = new google.maps.InfoWindow()
+
+            const longtitude = parseFloat('106.673543');
+			const latitude = parseFloat('10.762574');
+
+            var userLatLng = new google.maps.LatLng(latitude, longtitude);
+
+            const mapOptions = {
+                center: userLatLng,
+                zoom: 16,
+                mapTypeId : google.maps.MapTypeId.ROADMAP
+            };
+            
+            map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+            var marker = new google.maps.Marker({
+                map: map,
+                position: userLatLng
+            });
+            infowindow.setContent('We Are Engineers - 143 Trần Nhân Tôn, Phường 2, Quận 10, Tp.HCM');
+            infowindow.open(map, marker);
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCABAsDXwnbiQ5vSIEwL5hhAmLgf0gLRMM&callback=initMap"></script>
+</body>
+
+</html>

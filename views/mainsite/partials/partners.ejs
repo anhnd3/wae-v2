@@ -1,0 +1,30 @@
+<%
+    let partners = [];
+    let dataItems = 4;
+    let dataPagination = true;
+    if(locals.partners) {
+        partners = locals.partners;
+        if(partners.length > 0 && partners.length <= 4) {
+            dataPagination = false;
+        }
+    }
+%>
+<section class="module-small bg-dark p-0">
+    <div class="container">
+        <div class="row client">
+            <div class="owl-carousel text-center" data-items="<%=dataItems%>" data-pagination="<%=dataPagination%>" data-navigation="false">
+                <% partners.forEach(partner => { %>
+                    <div class="owl-item">
+                        <div class="col-sm-12">
+                            <div class="client-logo">
+                                <a href="<%=partner.website %>" target="_blank">
+                                    <img src="<%=partner.logo %>" alt="<%=partner.name %>" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                <%}); %>
+            </div>
+        </div>
+    </div>
+</section>
