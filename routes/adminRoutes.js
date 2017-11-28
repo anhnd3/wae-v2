@@ -44,6 +44,7 @@ module.exports = (app, pool) => {
             const data = {
                 path: '/',
                 content: JSON.stringify({
+                    pageTitle: req.body.pageTitle,
                     introduceVideo: req.body.introduceVideo,
                     introduceImgBackground: req.body.introduceImgBackground,
                     introduceBigText: req.body.introduceBigText,
@@ -97,6 +98,7 @@ module.exports = (app, pool) => {
             const data = {
                 path: '/about',
                 content: JSON.stringify({
+                    pageTitle: req.body.pageTitle,
                     aboutImgBackground: req.body.aboutImgBackground,
                     aboutBigText: req.body.aboutBigText,
                     aboutSmallText: req.body.aboutSmallText,
@@ -153,6 +155,7 @@ module.exports = (app, pool) => {
             const data = {
                 path: '/contact',
                 content: JSON.stringify({
+                    pageTitle: req.body.pageTitle,
                     contactImgBackground: req.body.contactImgBackground,
                     contactBigText: req.body.contactBigText,
                     contactSmallText: req.body.contactSmallText,
@@ -199,6 +202,7 @@ module.exports = (app, pool) => {
             const data = {
                 path: '/course',
                 content: JSON.stringify({
+                    pageTitle: req.body.pageTitle,
                     courseImgBackground: req.body.courseImgBackground,
                     courseBigText: req.body.courseBigText,
                     courseSmallText: req.body.courseSmallText,
@@ -215,6 +219,51 @@ module.exports = (app, pool) => {
             console.log(e);
         }
         res.redirect('/adm/config/course');
+    });
+
+    app.get('/adm/config/metaseo', requireLogin, (req, res) => {
+        try {
+            pool.query(
+                'SELECT * FROM `layout_config` WHERE `path` = ?',
+                '/metaseo',
+                (err, result) => {
+                    if (err) {
+                        console.log(err);
+                        res.redirect('/adm');
+                    } else {
+                        if (result.length > 0) {
+                            res.render('admin/config-metaseo', { config: result[0] });
+                        } else {
+                            res.render('admin/config-metaseo', { config: {} });
+                        }
+                    }
+                });
+        } catch (err) {
+            console.log('exception: ' + err);
+            res.redirect('/adm');
+        }
+    });
+
+    app.post('/adm/config/metaseo', requireLogin, (req, res) => {
+        try {
+            const data = {
+                path: '/metaseo',
+                content: JSON.stringify({
+                    metaDescription: req.body.metaDescription,
+                    metaKeywords: req.body.metaKeywords,
+                })
+            };
+
+            pool.query(
+                'INSERT INTO `layout_config` (`path`,`content`) VALUES (?,?) ON DUPLICATE KEY UPDATE `content` = ?',
+                [data.path, data.content, data.content],
+                (err, rows, fields) => {
+                    if (err) console.log(err);
+                });
+        } catch (e) {
+            console.log(e);
+        }
+        res.redirect('/adm/config/metaseo');
     });
     // ===================================================================================
     // ===================================================================================

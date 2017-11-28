@@ -51,6 +51,10 @@
                             <form role="form" action="/adm/config/about" method="POST">
                                 <div class="box-body">
                                     <div class="form-group">
+                                        <label for="pageTitle">Page Title</label>
+                                        <input type="text" class="form-control" id="pageTitle" name="pageTitle" placeholder="example: Trang chủ" value="<%=(content && content.pageTitle)?content.pageTitle:""%>">
+                                    </div>
+                                    <div class="form-group">
                                         <label for="aboutImgBackground">About - Image Background (1900x1280)</label>
                                         <input type="text" class="form-control" id="aboutImgBackground" name="aboutImgBackground" placeholder="example: https://news.nationalgeographic.com/content/dam/news/photos/000/890/89070.ngsversion.1425757154489.adapt.1900.1.jpg" value="<%=(content && content.aboutImgBackground)?content.aboutImgBackground:"" %>">
                                     </div>
@@ -76,7 +80,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="presentationVideo">Presentation - Video Popup Youtube</label>
-                                        <input type="text" class="form-control" id="presentationVideo" name="presentationVideo" placeholder="example: https://www.youtube.com/watch?v=8DCSoUSyoz8" value="<%=(content && content.presentationVideo)?content.presentationVideo:"" %>>
+                                        <input type="text" class="form-control" id="presentationVideo" name="presentationVideo" placeholder="example: https://www.youtube.com/watch?v=8DCSoUSyoz8" value="<%=(content && content.presentationVideo)?content.presentationVideo:"" %>">
                                     </div>
                                     <div class="form-group">
                                         <label for="presentationImgBackground">Presentation - Image Background (1900x1280)</label>
