@@ -14,6 +14,12 @@ module.exports = (app, pool) => {
                 function (callback) {
                     pool.query('SELECT * FROM partners;',
                         callback);
+                },
+                function (callback) {
+                    pool.query(
+                        'SELECT * FROM `layout_config` WHERE `path` = ?;',
+                        '/metaseo',
+                        callback);
                 }
             ], function (err, results) {
                 if (err) {
@@ -21,7 +27,8 @@ module.exports = (app, pool) => {
                 } else {
                     const config = results[0][0];
                     const partners = results[1][0];
-                    res.render('mainsite/index', { config: config[0].content, partners: partners});
+                    const header = results[2][0];
+                    res.render('mainsite/index', { config: config[0].content, partners: partners, header: header[0].content });
                 }
             });
         } catch (err) {
@@ -42,7 +49,7 @@ module.exports = (app, pool) => {
                     pool.query(
                         'SELECT * FROM partners;',
                         callback);
-                }, 
+                },
                 function (callback) {
                     pool.query(
                         'SELECT * FROM teams',
@@ -55,7 +62,7 @@ module.exports = (app, pool) => {
                     const config = results[0][0];
                     const partners = results[1][0];
                     const team = results[2][0];
-                    res.render('mainsite/about', { config: config[0].content, partners: partners, team: team});
+                    res.render('mainsite/about', { config: config[0].content, partners: partners, team: team });
                 }
             });
         } catch (err) {
@@ -77,7 +84,7 @@ module.exports = (app, pool) => {
                     console.log(err);
                 } else {
                     const config = results[0][0];
-                    res.render('mainsite/contact', { config: config[0].content});
+                    res.render('mainsite/contact', { config: config[0].content });
                 }
             });
         } catch (err) {

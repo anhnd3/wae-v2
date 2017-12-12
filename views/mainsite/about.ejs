@@ -5,20 +5,16 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <% include ./partials/header %>
+    <%
+        const content = (locals.config)?JSON.parse(locals.config):{};
+        const team = (locals.team)?locals.team:[];
+        const header = (locals.header)?JSON.parse(locals.header): {};
+        header.titlePage = (content && content.pageTitle)?content.pageTitle:"WAE | About"
+    %>
+    <%- include('./partials/header', header) -%>
 </head>
 
 <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
-    <%
-        let content = {};
-        let team = [];
-        if (locals.config) {
-            content = JSON.parse(locals.config);
-        }
-        if(locals.team) {
-            team = locals.team;
-        }
-    %>
     <main>
         <div class="page-loader">
             <div class="loader">Loading...</div>
