@@ -1,0 +1,25 @@
+<div class="widget">
+    <h5 class="widget-title font-alt">Khoá học mới nhất</h5>
+    <ul class="widget-posts">
+        <%
+        console.log(locals);
+        const courses = (locals.courses)?locals.courses:[];
+        const classType = (locals.classType)?locals.classType:'';
+        console.log(courses.length);
+        courses.forEach(course => { %>
+            <li class="clearfix">
+                <div class="widget-posts-image">
+                    <a href="/course/<%=classType%>/<%=course.id%>">
+                        <img src="<%=(course.thumbnail)?course.thumbnail:''%>" alt="<%=(course.title)?course.title:''%>" />
+                    </a>
+                </div>
+                <div class="widget-posts-body">
+                    <div class="widget-posts-title">
+                        <a href="/course/<%=classType%>/<%=course.id%>"><%=(course.title)?course.title:''%></a>
+                    </div>
+                    <div class="widget-posts-meta"><%=(course.fullName)?course.fullName:''%></div>
+                </div>
+            </li>
+        <% }); %>
+    </ul>
+</div>

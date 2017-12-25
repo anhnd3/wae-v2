@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%
+        const content = (locals.config) ? JSON.parse(locals.config) : {};
+        const courses = (locals.courses) ? locals.courses : [];
+        const course = (locals.course) ? locals.course : {};
+        const classType = (locals.classType) ? locals.classType : '';
+        const header = (locals.header) ? JSON.parse(locals.header) : {};
+        header.titlePage = (course && course.title) ? `WAE | ${course.title}` : `WAE | ${classType}`;
+    %>
+    <%- include('./partials/header', header) -%>
+</head>
+
+<body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+    <main>
+        <div class="page-loader">
+            <div class="loader">Loading...</div>
+        </div>
+
+        <!-- Navigation start -->
+        <% include ./partials/navigation %>
+            <!-- Navigation end -->
+
+            <div class="main">
+                <!-- Course Container-->
+                <section class="module-small">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-4 col-md-3 sidebar">
+                                <% include ./partials/widget_course_type %>
+                                <%- include('./partials/widget_popular_course', {courses: courses, classType: classType}) -%>
+                            </div>
+                            <!-- Courses -->
+                            <div class="col-sm-8 col-sm-offset-1">
+                                <div class="post">
+                                    <div class="post-thumbnail">
+                                        <img src="<%=(course.thumbnail)?course.thumbnail:''%>" alt="<%=(course.title)?course.title:''%>" />
+                                    </div>
+                                    <div class="post-header font-alt">
+                                        <h1 class="post-title"><%=(course.title)?course.title:''%></h1>
+                                        <div class="post-meta">By&nbsp;
+                                            <a href="javscript:void(0);"><%=(course.fullName)?course.fullName:''%></a>
+                                        </div>
+                                    </div>
+                                    <div class="post-entry">
+                                        <%- (course.content)?course.content:'' -%>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Courses End-->
+                        </div>
+                    </div>
+                </section>
+                <!-- Course Container End -->
+
+                <!-- footer start -->
+                <% include ./partials/footer %>
+                    <!-- footer end -->
+            </div>
+            <div class="scroll-up">
+                <a href="#totop">
+                    <i class="fa fa-angle-double-up"></i>
+                </a>
+            </div>
+    </main>
+    <!--  
+    JavaScripts
+    =============================================
+    -->
+    <% include ./partials/static_footer%>
+</body>
+
+</html>

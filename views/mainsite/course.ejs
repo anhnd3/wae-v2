@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%
+        const content = (locals.config)?JSON.parse(locals.config):{};
+        const header = (locals.header)?JSON.parse(locals.header): {};
+
+        const basic = (locals.basic)?locals.basic: {};
+        const iot = (locals.iot)?locals.iot: {};
+        const steam = (locals.steam)?locals.steam: {};
+        header.titlePage = (content && content.pageTitle)?content.pageTitle:"WAE | Course"
+    %>
+    <%- include('./partials/header', header) -%>
+</head>
+
+<body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+    <main>
+        <div class="page-loader">
+            <div class="loader">Loading...</div>
+        </div>
+
+        <!-- Navigation start -->
+        <% include ./partials/navigation %>
+        <!-- Navigation end -->
+
+        <div class="main">
+            <!-- Text start -->
+            <section class="module bg-dark-60 pricing-page-header" data-background="<%=(content && content.courseImgBackground)?content.courseImgBackground:""%>">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <h2 class="module-title font-alt"><%=(content && content.courseBigText)?content.courseBigText:""%></h2>
+                            <div class="module-subtitle font-serif"><%=(content && content.courseSmallText)?content.courseSmallText:""%></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Text end --> 
+
+            <!-- Highlight Course -->
+            <section class="module">
+                <div class="container">
+                    <div class="row multi-columns-row">
+                        <% if(basic && Object.keys(basic).length > 0) { %>
+                        <div class="col-sm-4 col-md-4 col-lg-4">
+                            <div class="price-table font-alt">
+                                <h4>Arduino cơ bản</h4>
+                                <div class="borderline"></div>
+                                <div class="post mb-20">
+                                    <div class="post-thumbnail">
+                                        <a href="/course/arduino-co-ban/<%=basic.id%>"><img src="<%=(basic.thumbnail)?basic.thumbnail:""%>" alt="<%=(basic.title)?basic.title:""%>"></a>
+                                    </div>
+                                    <div class="post-header font-alt">
+                                        <h2 class="post-title"><a href="/course/arduino-co-ban/<%=basic.id%>"><%=(basic.title)?basic.title:""%></a></h2>
+                                        <div class="post-meta">By <a href="javascript:void(0);"><%=(basic.fullName)?basic.fullName:""%></a></div>
+                                    </div>
+                                    <div class="post-entry">
+                                        <%-(basic.shortDescription)?basic.shortDescription:""%>
+                                    </div>
+                                    <div class="post-more"><a class="more-link" href="/course/arduino-co-ban/<%=basic.id%>">Đọc tiếp</a></div>
+                                </div>
+                                <hr>
+                                <a class="btn btn-d btn-round" href="/course/arduino-co-ban">Xem tất cả</a>
+                            </div>
+                        </div>
+                        <% } %>
+                        <% if(iot && Object.keys(iot).length > 0) { %>
+                        <div class="col-sm-4 col-md-4 col-lg-4">
+                            <div class="price-table font-alt">
+                                <h4>Arduino trong IoT</h4>
+                                <div class="borderline"></div>
+                                <div class="post mb-20">
+                                    <div class="post-thumbnail">
+                                        <a href="/course/arduino-iot/<%=iot.id%>"><img src="<%=(iot.thumbnail)?iot.thumbnail:""%>" alt="<%=(iot.title)?iot.title:""%>"></a>
+                                    </div>
+                                    <div class="post-header font-alt">
+                                        <h2 class="post-title"><a href="/course/arduino-iot/<%=iot.id%>"><%=(iot.title)?iot.title:""%></a></h2>
+                                        <div class="post-meta">By <a href="javascript:void(0);"><%=(iot.fullName)?iot.fullName:""%></a></div>
+                                    </div>
+                                    <div class="post-entry">
+                                        <%-(iot.shortDescription)?iot.shortDescription:""%>
+                                    </div>
+                                    <div class="post-more"><a class="more-link" href="/course/arduino-iot/<%=iot.id%>">Đọc tiếp</a></div>
+                                </div>
+                                <hr>
+                                <a class="btn btn-d btn-round" href="/course/arduino-iot">Xem tất cả</a>
+                            </div>
+                        </div>
+                        <% } %>
+                        <% if(steam && Object.keys(steam).length > 0) { %>
+                        <div class="col-sm-4 col-md-4 col-lg-4">
+                            <div class="price-table font-alt">
+                                <h4>STEAM</h4>
+                                <div class="borderline"></div>
+                                <div class="post mb-20">
+                                    <div class="post-thumbnail">
+                                        <a href="/course/steam/<%=steam.id%>"><img src="<%=(steam.thumbnail)?steam.thumbnail:""%>" alt="<%=(steam.title)?steam.title:""%>"></a>
+                                    </div>
+                                    <div class="post-header font-alt">
+                                        <h2 class="post-title"><a href="/course/steam/<%=steam.id%>"><%=(steam.title)?steam.title:""%></a></h2>
+                                        <div class="post-meta">By <a href="javascript:void(0);"><%=(steam.fullName)?steam.fullName:""%></a></div>
+                                    </div>
+                                    <div class="post-entry">
+                                        <%-(steam.shortDescription)?steam.shortDescription:""%>
+                                    </div>
+                                    <div class="post-more"><a class="more-link" href="/course/steam/<%=steam.id%>">Đọc tiếp</a></div>
+                                </div>
+                                <hr>
+                                <a class="btn btn-d btn-round" href="/course/steam">Xem tất cả</a>
+                            </div>
+                        </div>
+                        <% } %>
+                    </div>
+                    <div class="row mt-40">
+                        <div class="col-sm-6 col-sm-offset-3 align-center">
+                            <p>Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators. To achieve this, it would be necessary to have uniform grammar, pronunciation and more common words.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Highlight course End -->
+
+            <!-- footer start -->
+            <% include ./partials/footer %>
+            <!-- footer end -->
+        </div>
+        <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
+    </main>
+    <!--  
+    JavaScripts
+    =============================================
+    -->
+    <% include ./partials/static_footer%>
+</body>
+
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%
+        const content = (locals.config) ? JSON.parse(locals.config) : {};
+
+        const courses = (locals.courses) ? locals.courses : [];
+
+        const header = (locals.header) ? JSON.parse(locals.header) : {};
+        header.titlePage = (content && content.pageTitle) ? content.pageTitle : 'WAE | Course';
+
+        const classType = (locals.classType) ? locals.classType : '';
+        if(classType === 'arduino-co-ban') {
+            content.courseImgBackground = content.courseBasicImgBackground;
+            content.courseBigText = content.courseBasicBigText;
+            content.courseSmallText = content.courseBasicSmallText;
+        } else if(classType === 'arduino-iot') {
+            content.courseImgBackground = content.courseIoTImgBackground;
+            content.courseBigText = content.courseIoTBigText;
+            content.courseSmallText = content.courseIoTSmallText;
+        } else if(classType === 'steam') {
+            content.courseImgBackground = content.courseSTEAMImgBackground;
+            content.courseBigText = content.courseSTEAMBigText;
+            content.courseSmallText = content.courseSTEAMSmallText;
+        }
+    %>
+    <%- include('./partials/header', header) -%>
+</head>
+
+<body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+    <main>
+        <div class="page-loader">
+            <div class="loader">Loading...</div>
+        </div>
+
+        <!-- Navigation start -->
+        <% include ./partials/navigation %>
+        <!-- Navigation end -->
+
+        <div class="main">
+            <!-- Text start -->
+            <section class="module bg-dark-60 blog-page-header" data-background="<%=(content && content.courseImgBackground)?content.courseImgBackground:''%>">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <h2 class="module-title font-alt">
+                                <%=(content && content.courseBigText)?content.courseBigText:''%>
+                            </h2>
+                            <div class="module-subtitle font-serif">
+                                <%=(content && content.courseSmallText)?content.courseSmallText:''%>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Text end -->
+
+            <!-- Course Container-->
+            <section class="module">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-4 col-md-3 sidebar">
+                            <% include ./partials/widget_course_type %>
+                            <%- include('./partials/widget_popular_course', {courses: courses, classType: classType}) -%>
+                        </div>
+                        <!-- List Courses -->
+                        <div class="col-sm-8 col-sm-offset-1">
+                            <% courses.forEach(course => { %>
+                                <!-- Course -->
+                                <div class="post">
+                                    <div class="post-thumbnail">
+                                        <a href="/course/<%=classType%>/<%=course.id%>">
+                                            <img src="<%=(course.thumbnail)?course.thumbnail:''%>" alt="<%=(course.title)?course.title:''%>" />
+                                        </a>
+                                    </div>
+                                    <div class="post-header font-alt">
+                                        <h2 class="post-title">
+                                            <a href="/course/<%=classType%>/<%=course.id%>"><%=(course.title)?course.title:''%></a>
+                                        </h2>
+                                        <div class="post-meta">By&nbsp;
+                                            <a href="javascript:void(0);"><%=(course.fullName)?course.fullName:''%></a>
+                                        </div>
+                                    </div>
+                                    <div class="post-entry">
+                                        <%-(course.shortDescription)?course.shortDescription:''-%>
+                                    </div>
+                                    <div class="post-more">
+                                        <a class="more-link" href="/course/<%=classType%>/<%=course.id%>">Xem chi tiết</a>
+                                    </div>
+                                </div>
+                                <!-- Course End -->
+                            <% }); %>
+                            <!-- <% include ./partials/widget_pagination %> -->
+                            <!-- List Courses End-->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Course Container End -->
+
+            <!-- footer start -->
+            <% include ./partials/footer %>
+                <!-- footer end -->
+        </div>
+        <div class="scroll-up">
+            <a href="#totop">
+                <i class="fa fa-angle-double-up"></i>
+            </a>
+        </div>
+    </main>
+    <!--  
+    JavaScripts
+    =============================================
+    -->
+    <% include ./partials/static_footer%>
+</body>
+
+</html>

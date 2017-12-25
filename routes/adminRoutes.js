@@ -5,7 +5,7 @@ const keys = require('../config/keys');
 
 module.exports = (app, pool) => {
 
-    // ======================== Dashboard - Blank Page ==================================
+    // ======================== Dashboard _ Blank Page ==================================
     // ===================================================================================
     // ===================================================================================
     app.get('/adm', requireLogin, (req, res) => {
@@ -27,9 +27,9 @@ module.exports = (app, pool) => {
                         res.redirect('/adm');
                     } else {
                         if (result.length > 0) {
-                            res.render('admin/config-mainsite', { config: result[0] });
+                            res.render('admin/config_mainsite', { config: result[0] });
                         } else {
-                            res.render('admin/config-mainsite', { config: {} });
+                            res.render('admin/config_mainsite', { config: {} });
                         }
                     }
                 });
@@ -81,9 +81,9 @@ module.exports = (app, pool) => {
                         res.redirect('/adm');
                     } else {
                         if (result.length > 0) {
-                            res.render('admin/config-about', { config: result[0] });
+                            res.render('admin/config_about', { config: result[0] });
                         } else {
-                            res.render('admin/config-about', { config: {} });
+                            res.render('admin/config_about', { config: {} });
                         }
                     }
                 });
@@ -138,9 +138,9 @@ module.exports = (app, pool) => {
                         res.redirect('/adm');
                     } else {
                         if (result.length > 0) {
-                            res.render('admin/config-contact', { config: result[0] });
+                            res.render('admin/config_contact', { config: result[0] });
                         } else {
-                            res.render('admin/config-contact', { config: {} });
+                            res.render('admin/config_contact', { config: {} });
                         }
                     }
                 });
@@ -185,9 +185,9 @@ module.exports = (app, pool) => {
                         res.redirect('/adm');
                     } else {
                         if (result.length > 0) {
-                            res.render('admin/config-course', { config: result[0] });
+                            res.render('admin/config_course', { config: result[0] });
                         } else {
-                            res.render('admin/config-course', { config: {} });
+                            res.render('admin/config_course', { config: {} });
                         }
                     }
                 });
@@ -206,6 +206,15 @@ module.exports = (app, pool) => {
                     courseImgBackground: req.body.courseImgBackground,
                     courseBigText: req.body.courseBigText,
                     courseSmallText: req.body.courseSmallText,
+                    courseBasicImgBackground: req.body.courseBasicImgBackground,
+                    courseBasicBigText: req.body.courseBasicBigText,
+                    courseBasicSmallText: req.body.courseBasicSmallText,
+                    courseIoTImgBackground: req.body.courseIoTImgBackground,
+                    courseIoTBigText: req.body.courseIoTBigText,
+                    courseIoTSmallText: req.body.courseIoTSmallText,
+                    courseSTEAMImgBackground: req.body.courseSTEAMImgBackground,
+                    courseSTEAMBigText: req.body.courseSTEAMBigText,
+                    courseSTEAMSmallText: req.body.courseSTEAMSmallText,
                 })
             };
 
@@ -232,9 +241,9 @@ module.exports = (app, pool) => {
                         res.redirect('/adm');
                     } else {
                         if (result.length > 0) {
-                            res.render('admin/config-metaseo', { config: result[0] });
+                            res.render('admin/config_metaseo', { config: result[0] });
                         } else {
-                            res.render('admin/config-metaseo', { config: {} });
+                            res.render('admin/config_metaseo', { config: {} });
                         }
                     }
                 });
@@ -251,6 +260,19 @@ module.exports = (app, pool) => {
                 content: JSON.stringify({
                     metaDescription: req.body.metaDescription,
                     metaKeywords: req.body.metaKeywords,
+                    icon57: req.body.icon57,
+                    icon60: req.body.icon60,
+                    icon72: req.body.icon72,
+                    icon76: req.body.icon76,
+                    icon114: req.body.icon114,
+                    icon120: req.body.icon120,
+                    icon144: req.body.icon144,
+                    icon152: req.body.icon152,
+                    icon180: req.body.icon180,
+                    icon192: req.body.icon192,
+                    icon32: req.body.icon32,
+                    icon96: req.body.icon96,
+                    icon16: req.body.icon16
                 })
             };
 
@@ -518,12 +540,13 @@ module.exports = (app, pool) => {
                 thumbnail: req.body.thumbnail,
                 shortDescription: req.body.shortDescription,
                 content: req.body.content,
+                highlight: (req.body.highlight === 'on') ? 1 : 0,
                 status: (req.body.status === 'on') ? 1 : 0
             };
 
             pool.query(
-                'INSERT INTO `courses` (`id`,`title`,`classType`,`thumbnail`,`shortDescription`,`content`,`teacher`,`status`) VALUES (?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE `title`=?,`classType`=?,`thumbnail`=?,`shortDescription`=?,`content`=?,`teacher`=?,`status`=?',
-                [data.id, data.title, data.classType, data.thumbnail, data.shortDescription, data.content, data.teacher, data.status, data.title, data.classType, data.thumbnail, data.shortDescription, data.content, data.teacher, data.status],
+                'INSERT INTO `courses` (`id`,`title`,`classType`,`thumbnail`,`shortDescription`,`content`,`teacher`,`highlight`,`status`) VALUES (?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE `title`=?,`classType`=?,`thumbnail`=?,`shortDescription`=?,`content`=?,`teacher`=?,`highlight`=?,`status`=?',
+                [data.id, data.title, data.classType, data.thumbnail, data.shortDescription, data.content, data.teacher, data.highlight, data.status, data.title, data.classType, data.thumbnail, data.shortDescription, data.content, data.teacher, data.highlight, data.status],
                 (err, rows, fields) => {
                     if (err) console.log(err);
                 });
@@ -593,10 +616,10 @@ module.exports = (app, pool) => {
         }
     });
 
-    app.get('/adm/auth/logout', function(req, res) {
+    app.get('/adm/auth/logout', function (req, res) {
         req[keys.cookieName].reset();
         res.redirect('/adm/login');
-      });
+    });
 
     function requireLogin(req, res, next) {
         if (!req.user) {

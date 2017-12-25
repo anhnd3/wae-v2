@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Admin WAE | Config Meta SEO</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <% include ./partials/static_header %>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        <% include ./partials/header %>
+
+        <!-- Left side column. contains the logo and sidebar -->
+        <% const dataSidebar = {
+            activeConfig: true,
+            activeConfigMetaSeo: true
+        } %>
+        <%- include('./partials/sidebar', dataSidebar) -%>
+
+        
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <% const dataBreadcrumb = {
+                title: 'Config Meta SEO',
+                smallTitle: 'Update Meta SEO of page wae',
+                isDashboard: false,
+                pageTitle: 'Config Meta SEO'
+            } %>
+            <%- include('./partials/breadcrumb', dataBreadcrumb) -%>
+
+            <!-- Main content -->
+            <section class="content">
+                <%
+                    let content = {};
+                    if(locals.config && locals.config.content) {
+                        content = JSON.parse(config.content);
+                    }
+                %>
+                <div class="row">
+                    <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Content Meta SEO information </h3>
+                            </div>
+                            <!-- /.box-header -->
+                            <!-- form start -->
+                            <form role="form" action="/adm/config/metaseo" method="POST">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label for="metaDescription">Meta Description</label>
+                                        <textarea rows="5" class="form-control" id="metaDescription" name="metaDescription"><%=(content && content.metaDescription)?content.metaDescription:"" %></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="metaKeywords">Meta Keywords</label>
+                                        <textarea rows="3" class="form-control" id="metaKeywords" name="metaKeywords"><%=(content && content.metaKeywords)?content.metaKeywords:"" %></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="icon57">Icon 57px</label>
+                                        <input type="text" class="form-control" id="icon57" name="icon57" value="<%=(content && content.icon57)?content.icon57:"" %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="icon60">Icon 60px</label>
+                                        <input type="text" class="form-control" id="icon60" name="icon60" value="<%=(content && content.icon60)?content.icon60:"" %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="icon72">Icon 72px</label>
+                                        <input type="text" class="form-control" id="icon72" name="icon72" value="<%=(content && content.icon72)?content.icon72:"" %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="icon76">Icon 76px</label>
+                                        <input type="text" class="form-control" id="icon76" name="icon76" value="<%=(content && content.icon76)?content.icon76:"" %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="icon114">Icon 114px</label>
+                                        <input type="text" class="form-control" id="icon114" name="icon114" value="<%=(content && content.icon114)?content.icon114:"" %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="icon120">Icon 120px</label>
+                                        <input type="text" class="form-control" id="icon120" name="icon120" value="<%=(content && content.icon120)?content.icon120:"" %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="courseImgBackground">Icon 144px</label>
+                                        <input type="text" class="form-control" id="icon144" name="icon144" value="<%=(content && content.icon144)?content.icon144:"" %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="icon152">Icon 152px</label>
+                                        <input type="text" class="form-control" id="icon152" name="icon152" value="<%=(content && content.icon152)?content.icon152:"" %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="icon180">Icon 180px</label>
+                                        <input type="text" class="form-control" id="icon180" name="icon180" value="<%=(content && content.icon180)?content.icon180:"" %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="icon192">Icon 192px</label>
+                                        <input type="text" class="form-control" id="icon192" name="icon192" value="<%=(content && content.icon192)?content.icon192:"" %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="icon32">Icon 32px</label>
+                                        <input type="text" class="form-control" id="icon32" name="icon32" value="<%=(content && content.icon32)?content.icon32:"" %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="icon96">Icon 96px</label>
+                                        <input type="text" class="form-control" id="icon96" name="icon96" value="<%=(content && content.icon96)?content.icon96:"" %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="icon16">Icon 16px</label>
+                                        <input type="text" class="form-control" id="icon16" name="icon16" value="<%=(content && content.icon16)?content.icon16:"" %>">
+                                    </div>
+                                </div>
+                                <!-- /.box-body -->
+
+                                <div class="box-footer">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Version</b> 1.0.0
+            </div>
+            <strong>Copyright &copy;
+               <%=(new Date()).getFullYear(); %>.</strong> All rights reserved.
+        </footer>
+    </div>
+    <!-- ./wrapper -->
+    <% include ./partials/static_footer %>
+</body>
+
+</html>

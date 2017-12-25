@@ -58,6 +58,7 @@
                                             <th>Class Type</th>
                                             <th>Thumbnail</th>
                                             <th>Teacher</th>
+                                            <th>Highlight</th>
                                             <th>Status</th>
                                         </tr>
                                         <% content.forEach(course => { %>
@@ -83,7 +84,8 @@
                                                 </td>
                                                 <td> <img src="<%=course.thumbnail%>" style="width: 80px; height: 46px;" title="avatar size (800x460)"></td>
                                                 <td><%=course.teacher%></td>
-                                                <td><%=(course.status)?"Active":"Inactive" %></td>
+                                                <td><%=(course.highlight)?"Highlight":"" %></td>
+                                                <td><%=(course.status)?"Active":"" %></td>
                                             </tr>
                                         <% }); %>
                                     </tbody>

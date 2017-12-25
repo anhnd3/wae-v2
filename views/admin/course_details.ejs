@@ -78,7 +78,7 @@
                                     <div class="form-group">
                                         <label for="thumbnail">Thumbnail (800x460)</label>
                                         <input type="text" class="form-control" id="thumbnail" name="thumbnail" value="<% if(content && content.thumbnail){ %><%=content.thumbnail %><% } %>">
-                                        <img src="<%=(content && content.thumbnail)?content.thumbnail:"" %>" title="Avatar">
+                                        <img src="<%=(content && content.thumbnail)?content.thumbnail:"" %>" style="width:400px; height: 230px;" title="Avatar">
                                     </div>
                                     <div class="form-group">
                                         <label for="shortDescription">Short Description</label>
@@ -87,6 +87,11 @@
                                     <div class="form-group">
                                         <label for="content">Content</label>
                                         <textarea class="form-control" id="content" name="content"><%=(content && content.content)?content.content:"" %></textarea>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" id="highlight" name="highlight" <%=(content && content.highlight)?"checked":"" %>> Highlight
+                                        </label>
                                     </div>
                                     <div class="checkbox">
                                         <label>
