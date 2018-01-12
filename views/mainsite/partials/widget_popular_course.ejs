@@ -2,10 +2,8 @@
     <h5 class="widget-title font-alt">Khoá học mới nhất</h5>
     <ul class="widget-posts">
         <%
-        console.log(locals);
         const courses = (locals.courses)?locals.courses:[];
         const classType = (locals.classType)?locals.classType:'';
-        console.log(courses.length);
         courses.forEach(course => { %>
             <li class="clearfix">
                 <div class="widget-posts-image">

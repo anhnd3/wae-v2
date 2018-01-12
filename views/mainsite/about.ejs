@@ -47,9 +47,27 @@
                             <%-(content && content.skillDescription)?content.skillDescription:""%>
                         </div>
                         <div class="col-sm-6">
-                            <%  if(content && content.skills && content.skills.length > 0) { 
-                                    content.skills.forEach((skill) => { %>
-                                        <h6 class="font-alt"><span class="icon-tools-2"></span> <%=skill.title%></h6>
+                            <%  
+                                const skillListing = (content && content.skillListing) ? content.skillListing: '';
+                                console.log('skill listing: ' + skillListing);
+                                const skills = [];
+                                if(skillListing.length > 0) {
+                                    const tmpSkills = skillListing.split(',');
+                                    if(tmpSkills.length > 0) {
+                                        tmpSkills.forEach(tmpSkill => {
+                                            let skill = {};
+                                            let tmpSkillDetail = tmpSkill.split('-');
+                                            if(tmpSkillDetail.length === 2) {
+                                                skill.title = tmpSkillDetail[0];
+                                                skill.percent = tmpSkillDetail[1];
+                                                skills.push(skill);
+                                            }
+                                        });
+                                    }
+                                }
+                                if(skills.length > 0) { 
+                                    skills.forEach((skill) => { %>
+                                        <h6 class="font-alt"><span class="icon-target"></span> <%=skill.title%></h6>
                                         <div class="progress">
                                             <div class="progress-bar pb-dark" aria-valuenow="<%=skill.percent%>" role="progressbar" aria-valuemin="0" aria-valuemax="100"><span class="font-alt"></span></div>
                                         </div>
