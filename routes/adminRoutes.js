@@ -400,6 +400,8 @@ module.exports = (app, pool) => {
                 status: (req.body.status === 'on') ? 1 : 0
             };
 
+            console.log(data);
+
             pool.query(
                 'INSERT INTO `teams` (`id`,`fullName`,`avatar`,`title`,`shortDescription`,`facebook`,`linkedin`, `email`,`skype`,`status`) VALUES (?,?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE `fullName`=?,`avatar`=?,`title`=?,`shortDescription`=?,`facebook`=?,`linkedin`=?,`email`=?,`skype`=?,`status`=?',
                 [data.id, data.fullName, data.avatar, data.title, data.shortDescription, data.facebook, data.linkedin, data.email, data.skype, data.status, data.fullName, data.avatar, data.title, data.shortDescription, data.facebook, data.linkedin, data.email, data.skype, data.status],
