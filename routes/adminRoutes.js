@@ -1,5 +1,6 @@
 const async = require('async');
 const md5 = require('md5');
+const moment = require('moment');
 
 const keys = require('../config/keys');
 
@@ -618,6 +619,99 @@ module.exports = (app, pool) => {
             console.log('exception: ' + err);
         }
         res.redirect('/adm/courses');
+    });
+    // ===================================================================================
+    // ===================================================================================
+    // ================================= News Config =====================================
+    // ===================================================================================
+    // ===================================================================================
+    app.get('/adm/news', requireLogin, (req, res) => {
+        try {
+            async.parallel([
+                function (callback) {
+                    pool.query(
+                        'SELECT * FROM `news`',
+                        callback);
+                }
+            ], function (err, results) {
+                if (err) {
+                    res.redirect('/adm');
+                }
+                const news = results[0][0];
+                res.render('admin/news', { news: news, moment: moment });
+            });
+        } catch (err) {
+            console.log('exception: ' + err);
+            res.redirect('/adm');
+        }
+    });
+
+    app.get('/adm/news/details/:id', requireLogin, (req, res) => {
+        const id = req.params.id;
+        try {
+            async.parallel([
+                function (callback) {
+                    pool.query(
+                        'SELECT * FROM `news` WHERE `id` = ?',
+                        [id],
+                        callback);
+                }
+            ], function (err, results) {
+                if (err) {
+                    res.redirect('/adm/news');
+                }
+                res.render('admin/news_details', { news: results[0][0][0] });
+            });
+        } catch (err) {
+            console.log('exception: ' + err);
+            res.redirect('/adm/news');
+        }
+    });
+
+    app.post('/adm/news/details', requireLogin, (req, res) => {
+        try {
+            const data = {
+                id: (req.body.id) ? parseInt(req.body.id) : 0,
+                title: req.body.title,
+                author: req.body.author,
+                thumbnail: req.body.thumbnail,
+                shortDescription: req.body.shortDescription,
+                content: req.body.content,
+                highlight: (req.body.highlight === 'on') ? 1 : 0,
+                status: (req.body.status === 'on') ? 1 : 0,
+                tag: req.body.tag,
+                group: req.body.group
+            };
+
+            if (data.id === 0) {
+                data.time = new Date();
+            }
+
+            pool.query(
+                'INSERT INTO `news` (`id`,`title`,`time`,`thumbnail`,`shortDescription`,`content`,`author`,`highlight`,`status`,`tag`,`group`) VALUES (?,?,?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE `title`=?,`thumbnail`=?,`shortDescription`=?,`content`=?,`author`=?,`highlight`=?,`status`=?,`tag`=?,`group`=?',
+                [data.id, data.title, data.time, data.thumbnail, data.shortDescription, data.content, data.author, data.highlight, data.status, data.tag, data.group, data.title, data.thumbnail, data.shortDescription, data.content, data.author, data.highlight, data.status, data.tag, data.group],
+                (err, rows, fields) => {
+                    if (err) console.log(err);
+                });
+        } catch (e) {
+            console.log(e);
+        }
+        res.redirect('/adm/news');
+    });
+
+    app.get('/adm/courses/delete/:id', requireLogin, (req, res) => {
+        const id = req.params.id;
+        try {
+            pool.query(
+                'DELETE FROM `news` WHERE `id` = ?',
+                [id],
+                (err, result) => {
+                    if (err) console.log(err);
+                });
+        } catch (err) {
+            console.log('exception: ' + err);
+        }
+        res.redirect('/adm/news');
     });
     // ===================================================================================
     // ===================================================================================

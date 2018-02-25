@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Admin WAE | News WAE</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <% include ./partials/static_header %>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        <% include ./partials/header %>
+
+        <!-- Left side column. contains the logo and sidebar -->
+        <% const dataSidebar = {
+            activeNews: true
+        } %>
+        <%- include('./partials/sidebar', dataSidebar) -%>
+
+        
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <% const dataBreadcrumb = {
+                title: 'News at WAE',
+                smallTitle: 'Information news at WAE',
+                isDashboard: false,
+                pageTitle: 'News at WAE'
+            } %>
+            <%- include('./partials/breadcrumb', dataBreadcrumb) -%>
+
+            <!-- Main content -->
+            <section class="content">
+                <%
+                    let content = [];
+                    let moment;
+                    if(locals.news) {
+                        content = news;
+                    }
+                    if(locals.moment) {
+                        moment = locals.moment;
+                    }
+                %>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">List news</h3>
+                                <div class="box-tools">
+                                    <a href="/adm/news/details/0"><button type="button" class="btn btn-block btn-primary btn-sm">Add</button></a>
+                                </div>
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body no-padding">
+                                <table class="table table-striped">
+                                    <tbody>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Title</th>
+                                            <th>Time</th>
+                                            <th>Thumbnail</th>
+                                            <th>Author</th>
+                                            <th>Highlight</th>
+                                            <th>Status</th>
+                                            <th>Tag</th>
+                                            <th>Group</th>
+                                        </tr>
+                                        <% content.forEach(tmpNews => { %>
+                                            <tr>
+                                                <td>
+                                                    <%=tmpNews.id%> | 
+                                                    <a href="/adm/news/details/<%=tmpNews.id%>"><i class="fa fa-edit"></i></a> | 
+                                                    <a href="/adm/news/delete/<%=tmpNews.id%>" onclick="return confirm('Do you want to remove tmpNews: <%=tmpNews.title%>')"><i class="fa fa-trash"></i></a>
+                                                </td>
+                                                <td><%=tmpNews.title%></td>
+                                                <td><%= moment(tmpNews.time).format('DD-MM-YYYY HH:mm') %></td>
+                                                <td> <img src="<%=tmpNews.thumbnail%>" style="width: 80px; height: 46px;" title="image size (800x460)"></td>
+                                                <td><%=tmpNews.author%></td>
+                                                <td><%=(tmpNews.highlight)?"Highlight":"" %></td>
+                                                <td><%=(tmpNews.status)?"Active":"" %></td>
+                                                <td><%=tmpNews.tag%></td>
+                                                <td><%=tmpNews.group%></td>
+                                            </tr>
+                                        <% }); %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+        <% include ./partials/footer %>
+    </div>
+    <!-- ./wrapper -->
+    <% include ./partials/static_footer %>
+</body>
+
+</html>

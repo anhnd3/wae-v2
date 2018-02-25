@@ -53,12 +53,12 @@ module.exports = (app, pool) => {
                 },
                 function (callback) {
                     pool.query(
-                        'SELECT * FROM partners;',
+                        'SELECT * FROM `partners` WHERE `status` = 1;',
                         callback);
                 },
                 function (callback) {
                     pool.query(
-                        'SELECT * FROM teams',
+                        'SELECT * FROM `teams` WHERE `status` = 1;',
                         callback);
                 },
                 function (callback) {

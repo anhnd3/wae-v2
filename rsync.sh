@@ -4,7 +4,7 @@ echo "Copy files..."
 rsync -av ./config ./index.js ./package.json ./public ./routes ./views root@128.199.172.57:/zserver/nodejs-projects/wae-v2
 
 echo "Restart project"
-ssh root@128.199.172.57 "pm2 restart 0"
+ssh root@128.199.172.57 "/zserver/nodejs-projects/wae-v2/runserver.sh"
 
 exit 0
 
