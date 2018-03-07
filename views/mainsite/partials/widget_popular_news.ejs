@@ -1,0 +1,22 @@
+<div class="widget">
+    <h5 class="widget-title font-alt">Tin tức mới nhất</h5>
+    <ul class="widget-posts">
+        <%
+        const news = (locals.news)?locals.news:[];
+        news.forEach(tmpNews => { %>
+            <li class="clearfix">
+                <div class="widget-posts-image">
+                    <a href="/news/<%=tmpNews.id%>">
+                        <img src="<%=(tmpNews.thumbnail)?tmpNews.thumbnail:''%>" alt="<%=(tmpNews.title)?tmpNews.title:''%>" />
+                    </a>
+                </div>
+                <div class="widget-posts-body">
+                    <div class="widget-posts-title">
+                        <a href="/news/<%=tmpNews.id%>"><%=(tmpNews.title)?tmpNews.title:''%></a>
+                    </div>
+                    <div class="widget-posts-meta"><%=(tmpNews.author)?tmpNews.author:''%></div>
+                </div>
+            </li>
+        <% }); %>
+    </ul>
+</div>

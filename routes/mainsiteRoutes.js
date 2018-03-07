@@ -273,6 +273,12 @@ module.exports = (app, pool) => {
                 },
                 function (callback) {
                     pool.query(
+                        'SELECT `courses`.*,`teams`.`fullName` FROM `courses` LEFT JOIN `teams` ON `courses`.`teacher` = `teams`.`id` WHERE `courses`.`id` = ?;',
+                        courseId,
+                        callback);
+                },
+                function (callback) {
+                    pool.query(
                         'SELECT * FROM `layout_config` WHERE `path` = ?;',
                         '/metaseo',
                         callback);
@@ -283,22 +289,20 @@ module.exports = (app, pool) => {
                 } else {
                     const config = results[0][0];
                     let courses = results[1][0];
-                    const header = results[2][0];
-                    let courseDetail = {};
+                    let courseDetail = results[2][0][0];
+                    const header = results[3][0];
+
 
                     courses = courses.map(course => {
-                        if (course.id === parseInt(courseId)) {
-                            courseDetail = course;
-                        }
                         course.id = hashids.encode(course.id);
                         return course;
                     });
 
-                    if (!courseDetail || !courseDetail.id ) {
+                    if (!courseDetail || !courseDetail.id) {
                         res.redirect(`/course/${courseType}`);
                         return;
                     }
-                    
+
                     const dataOutput = {
                         classType: courseType,
                         config: config[0].content,
@@ -306,8 +310,117 @@ module.exports = (app, pool) => {
                         courses: courses,
                         course: courseDetail
                     }
-
                     res.render('mainsite/course_detail', dataOutput);
+                }
+            });
+        } catch (err) {
+            console.log('exception: ' + err);
+        }
+    });
+
+    app.get('/news', (req, res) => {
+        try {
+            async.parallel([
+                function (callback) {
+                    pool.query(
+                        'SELECT * FROM `layout_config` WHERE `path` = ?;',
+                        '/news',
+                        callback);
+                },
+                function (callback) {
+                    pool.query(
+                        'SELECT * FROM `news` ORDER BY `id` DESC LIMIT 0,5;',
+                        callback);
+                },
+                function (callback) {
+                    pool.query(
+                        'SELECT * FROM `layout_config` WHERE `path` = ?;',
+                        '/metaseo',
+                        callback);
+                }
+            ], function (err, results) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    const config = results[0][0];
+                    let news = results[1][0];
+                    const header = results[2][0];
+
+                    const dataOutput = {
+                        config: config[0].content,
+                        header: header[0].content
+                    }
+
+                    news = news.map(tmpNews => {
+                        tmpNews.id = hashids.encode(tmpNews.id);
+                        return tmpNews;
+                    });
+
+                    dataOutput.news = news;
+                    res.render('mainsite/news_listing', dataOutput);
+                }
+            });
+        } catch (err) {
+            console.log('exception: ' + err);
+        }
+    });
+
+    app.get('/news/:newsId', (req, res) => {
+        let newsId = req.params.newsId;
+        newsId = hashids.decode(newsId);
+        try {
+            async.parallel([
+                function (callback) {
+                    pool.query(
+                        'SELECT * FROM `layout_config` WHERE `path` = ?;',
+                        '/news',
+                        callback);
+                },
+                function (callback) {
+                    pool.query(
+                        'SELECT * FROM `news` ORDER BY `id` DESC LIMIT 0,5;',
+                        callback);
+                },
+                function (callback) {
+                    pool.query(
+                        'SELECT * FROM `news` WHERE `id`=?',
+                        newsId,
+                        callback);
+                },
+                function (callback) {
+                    pool.query(
+                        'SELECT * FROM `layout_config` WHERE `path` = ?;',
+                        '/metaseo',
+                        callback);
+                }
+            ], function (err, results) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    const config = results[0][0];
+                    let news = results[1][0];
+                    let newsDetail = results[2][0][0];
+                    const header = results[3][0];
+
+
+                    news = news.map(tmpNews => {
+                        tmpNews.id = hashids.encode(tmpNews.id);
+                        return tmpNews;
+                    });
+
+                    if (!newsDetail || !newsDetail.id) {
+                        res.redirect('/news');
+                        return;
+                    }
+
+                    const dataOutput = {
+                        config: config[0].content,
+                        header: header[0].content,
+                        news: news,
+                        newsDetail: newsDetail
+                    }
+
+                    res.render('mainsite/news_detail', dataOutput);
                 }
             });
         } catch (err) {

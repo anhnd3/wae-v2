@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%
+        const content = (locals.config) ? JSON.parse(locals.config) : {};
+        const news = (locals.news) ? locals.news : [];
+        const newsDetail = (locals.newsDetail) ? locals.newsDetail : {};
+        const header = (locals.header) ? JSON.parse(locals.header) : {};
+        header.titlePage = (newsDetail && newsDetail.title) ? `WAE | ${newsDetail.title}` : 'WAE | News';
+    %>
+    <%- include('./partials/header', header) -%>
+</head>
+
+<body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+    <main>
+        <div class="page-loader">
+            <div class="loader">Loading...</div>
+        </div>
+
+        <!-- Navigation start -->
+        <% include ./partials/navigation %>
+            <!-- Navigation end -->
+
+            <div class="main">
+                <!-- newsDetail Container-->
+                <section class="module-small">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-4 col-md-3 sidebar">
+                                <%- include('./partials/widget_popular_news', {news: news}) -%>
+                            </div>
+                            <!-- news -->
+                            <div class="col-sm-8 col-sm-offset-1">
+                                <div class="post">
+                                    <div class="post-thumbnail">
+                                        <img src="<%=(newsDetail.thumbnail)?newsDetail.thumbnail:''%>" alt="<%=(newsDetail.title)?newsDetail.title:''%>" />
+                                    </div>
+                                    <div class="post-header font-alt">
+                                        <h1 class="post-title"><%=(newsDetail.title)?newsDetail.title:''%></h1>
+                                        <div class="post-meta">By&nbsp;
+                                            <a href="javscript:void(0);"><%=(newsDetail.author)?newsDetail.author:''%></a>
+                                        </div>
+                                    </div>
+                                    <div class="post-entry">
+                                        <%- (newsDetail.content)?newsDetail.content:'' -%>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- news End-->
+                        </div>
+                    </div>
+                </section>
+                <!-- newsDetail Container End -->
+
+                <!-- footer start -->
+                <% include ./partials/footer %>
+                    <!-- footer end -->
+            </div>
+            <div class="scroll-up">
+                <a href="#totop">
+                    <i class="fa fa-angle-double-up"></i>
+                </a>
+            </div>
+    </main>
+    <!--  
+    JavaScripts
+    =============================================
+    -->
+    <% include ./partials/static_footer%>
+</body>
+
+</html>
