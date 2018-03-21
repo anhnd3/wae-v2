@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%
+        const content = (locals.config) ? JSON.parse(locals.config) : {};
+
+        const tutorials = (locals.tutorials) ? locals.tutorials : [];
+
+        const header = (locals.header) ? JSON.parse(locals.header) : {};
+        header.titlePage = (content && content.pageTitle) ? content.pageTitle : 'WAE | Tutorial';
+    %>
+    <%- include('./partials/header', header) -%>
+</head>
+
+<body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+    <main>
+        <div class="page-loader">
+            <div class="loader">Loading...</div>
+        </div>
+
+        <!-- Navigation start -->
+        <% include ./partials/navigation %>
+        <!-- Navigation end -->
+
+        <div class="main">
+            <!-- Text start -->
+            <section class="module bg-dark-60 blog-page-header" data-background="<%=(content && content.tutorialImgBackground)?content.tutorialImgBackground:''%>">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <h2 class="module-title font-alt">
+                                <%=(content && content.tutorialBigText)?content.tutorialBigText:''%>
+                            </h2>
+                            <div class="module-subtitle font-serif">
+                                <%=(content && content.tutorialSmallText)?content.tutorialSmallText:''%>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Text end -->
+
+            <!-- tutorial Container-->
+            <section class="module">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-4 col-md-3 sidebar">
+                            <%- include('./partials/widget_popular_tutorial', {tutorials: tutorials}) -%>
+                        </div>
+                        <!-- List tutorial -->
+                        <div class="col-sm-8 col-sm-offset-1">
+                            <% tutorials.forEach(tutorial => { %>
+                                <!-- tutorial -->
+                                <div class="post">
+                                    <div class="post-thumbnail">
+                                        <a href="/tutorial/<%=tutorial.id%>">
+                                            <img src="<%=(tutorial.thumbnail)?tutorial.thumbnail:''%>" alt="<%=(tutorial.title)?tutorial.title:''%>" />
+                                        </a>
+                                    </div>
+                                    <div class="post-header font-alt">
+                                        <h2 class="post-title">
+                                            <a href="/tutorial/<%=tutorial.id%>"><%=(tutorial.title)?tutorial.title:''%></a>
+                                        </h2>
+                                        <div class="post-meta">By&nbsp;
+                                            <a href="javascript:void(0);"><%=(tutorial.fullName)?tutorial.fullName:''%></a>
+                                        </div>
+                                    </div>
+                                    <div class="post-entry">
+                                        <%-(tutorial.shortDescription)?tutorial.shortDescription:''-%>
+                                    </div>
+                                    <div class="post-more">
+                                        <a class="more-link" href="/tutorial/<%=tutorial.id%>">Xem chi tiết</a>
+                                    </div>
+                                </div>
+                                <!-- tutorial End -->
+                            <% }); %>
+                            <!-- <% include ./partials/widget_pagination %> -->
+                            <!-- List tutorial End-->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- tutorial Container End -->
+
+            <!-- footer start -->
+            <% include ./partials/footer %>
+                <!-- footer end -->
+        </div>
+        <div class="scroll-up">
+            <a href="#totop">
+                <i class="fa fa-angle-double-up"></i>
+            </a>
+        </div>
+    </main>
+    <!--  
+    JavaScripts
+    =============================================
+    -->
+    <% include ./partials/static_footer%>
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Admin WAE | Config Page Tutorial Content</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <% include ./partials/static_header %>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        <% include ./partials/header %>
+
+        <!-- Left side column. contains the logo and sidebar -->
+        <% const dataSidebar = {
+            activeConfig: true,
+            activeConfigTutorial: true
+        } %>
+        <%- include('./partials/sidebar', dataSidebar) -%>
+
+        
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <% const dataBreadcrumb = {
+                title: 'Config Page Tutorial Content',
+                smallTitle: 'Update content page tutorial',
+                isDashboard: false,
+                pageTitle: 'Config page tutorial content'
+            } %>
+            <%- include('./partials/breadcrumb', dataBreadcrumb) -%>
+
+            <!-- Main content -->
+            <section class="content">
+                <%
+                    let content = {};
+                    if(locals.config && locals.config.content) {
+                        content = JSON.parse(config.content);
+                    }
+                %>
+                <div class="row">
+                    <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Content Page Tutorial </h3>
+                            </div>
+                            <!-- /.box-header -->
+                            <!-- form start -->
+                            <form role="form" action="/adm/config/tutorial" method="POST">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label for="pageTitle">Page Title</label>
+                                        <input type="text" class="form-control" id="pageTitle" name="pageTitle" placeholder="example: Trang chủ" value="<%=(content && content.pageTitle)?content.pageTitle:""%>">
+                                    </div>
+                                    <hr>
+                                    <div class="form-group">
+                                        <label for="tutorialImgBackground">Tutorial Mainpage - Image Background (1900x1280)</label>
+                                        <input type="text" class="form-control" id="tutorialImgBackground" name="tutorialImgBackground" placeholder="example: https://tutorial.nationalgeographic.com/content/dam/tutorial/photos/000/890/89070.ngsversion.1425757154489.adapt.1900.1.jpg" value="<%=(content && content.tutorialImgBackground)?content.tutorialImgBackground:"" %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="tutorialBigText">Tutorial Mainpage - Bigger Text</label>
+                                        <input type="text" class="form-control" id="tutorialBigText" name="tutorialBigText" placeholder="example: HELLO & WELCOME" value="<%=(content && content.tutorialBigText)?content.tutorialBigText:"" %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="tutorialSmallText">Tutorial Mainpage - Smaller Text</label>
+                                        <input type="text" class="form-control" id="tutorialSmallText" name="tutorialSmallText" placeholder="example: WE ARE ENGINEERS" value="<%=(content && content.tutorialSmallText)?content.tutorialSmallText:"" %>">
+                                    </div>
+                                </div>
+                                <!-- /.box-body -->
+
+                                <div class="box-footer">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+        <% include ./partials/footer %>
+    </div>
+    <!-- ./wrapper -->
+    <% include ./partials/static_footer %>
+</body>
+
+</html>

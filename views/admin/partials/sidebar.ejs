@@ -49,6 +49,10 @@
                         <a href="/adm/config/news">
                         <i class="fa fa-circle-o"></i> News</a>
                     </li>
+                    <li class="<% if (locals.activeConfigTutorial) { %> active <% } %>">
+                        <a href="/adm/config/tutorial">
+                        <i class="fa fa-circle-o"></i> Tutorial</a>
+                    </li>
                     <li class="<% if (locals.activeConfigMetaSeo) { %> active <% } %>">
                         <a href="/adm/config/metaseo">
                         <i class="fa fa-circle-o"></i> Meta SEO</a>
@@ -79,13 +83,13 @@
                     <span>News</span>
                 </a>
             </li>
-            <!--<li class="<% if (locals.activeTutorials) { %> active <% } %>">
-                <a href="/adm/tutorials">
+            <li class="<% if (locals.activeTutorials) { %> active <% } %>">
+                <a href="/adm/tutorial">
                     <i class="fa fa-institution"></i>
                     <span>Tutorial</span>
                 </a>
             </li>
-            <li class="<% if (locals.activeAdmin) { %> active <% } %>">
+            <!--<li class="<% if (locals.activeAdmin) { %> active <% } %>">
                 <a href="/adm/admins">
                     <i class="fa fa-user-secret"></i>
                     <span>Admin</span>

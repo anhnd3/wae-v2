@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Admin WAE | Tutorial Detail</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <% include ./partials/static_header %>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        <% include ./partials/header %>
+
+        <!-- Left side column. contains the logo and sidebar -->
+        <% const dataSidebar = {
+            activeNews: true
+        } %>
+        <%- include('./partials/sidebar', dataSidebar) -%>
+
+        
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <% const dataBreadcrumb = {
+                title: 'Tutorial Details',
+                smallTitle: 'Insert/Update Information',
+                isDashboard: false,
+                pageTitle: 'Config information of tutorial'
+            } %>
+            <%- include('./partials/breadcrumb', dataBreadcrumb) -%>
+
+            <!-- Main content -->
+            <section class="content">
+                <%
+                    let content = {};
+                    if(locals.tutorial) {
+                        content = locals.tutorial;
+                    }
+                %>
+                <div class="row">
+                    <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Course Information </h3>
+                            </div>
+                            <!-- /.box-header -->
+                            <!-- form start -->
+                            <form role="form" action="/adm/tutorial/details" method="POST">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label for="title">Title</label>
+                                        <input type="text" class="form-control" id="title" name="title" value="<%=(content && content.title)?content.title:"" %>">
+                                        <input type="hidden" class="form-control" id="id" name="id" value="<%=(content && content.id)?content.id:0 %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="author">Author</label>
+                                        <input type="text" class="form-control" id="author" name="author" value="<%=(content && content.author)?content.author:"" %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="thumbnail">Thumbnail (800x460)</label>
+                                        <input type="text" class="form-control" id="thumbnail" name="thumbnail" value="<% if(content && content.thumbnail){ %><%=content.thumbnail %><% } %>">
+                                        <img src="<%=(content && content.thumbnail)?content.thumbnail:"" %>" style="width:400px; height: 230px;" title="Avatar">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="tag">Tag</label>
+                                        <input type="text" class="form-control" id="tag" name="tag" value="<%=(content && content.tag)?content.tag:"" %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="group">Group</label>
+                                        <input type="text" class="form-control" id="group" name="group" value="<%=(content && content.group)?content.group:"" %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="shortDescription">Short Description</label>
+                                        <textarea class="form-control" id="shortDescription" name="shortDescription"><%=(content && content.shortDescription)?content.shortDescription:"" %></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="content">Content</label>
+                                        <textarea class="form-control" id="content" name="content"><%=(content && content.content)?content.content:"" %></textarea>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" id="highlight" name="highlight" <%=(content && content.highlight)?"checked":"" %>> Highlight
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" id="status" name="status" <%=(content && content.status)?"checked":"" %>> Active
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- /.box-body -->
+
+                                <div class="box-footer">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+        <% include ./partials/footer %>
+    </div>
+    <!-- ./wrapper -->
+    <% include ./partials/static_footer %>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            CKEDITOR.replace('shortDescription', {
+                height: 100
+            });
+            CKEDITOR.replace('content', {
+                height: 600
+            });
+            $('.select2').select2();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Admin WAE | Tutorial WAE</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <% include ./partials/static_header %>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        <% include ./partials/header %>
+
+        <!-- Left side column. contains the logo and sidebar -->
+        <% const dataSidebar = {
+            activeTutorial: true
+        } %>
+        <%- include('./partials/sidebar', dataSidebar) -%>
+
+        
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <% const dataBreadcrumb = {
+                title: 'Tutorial at WAE',
+                smallTitle: 'Information Tutorial at WAE',
+                isDashboard: false,
+                pageTitle: 'Tutorial at WAE'
+            } %>
+            <%- include('./partials/breadcrumb', dataBreadcrumb) -%>
+
+            <!-- Main content -->
+            <section class="content">
+                <%
+                    let content = [];
+                    let moment;
+                    if(locals.tutorial) {
+                        content = tutorial;
+                    }
+                    if(locals.moment) {
+                        moment = locals.moment;
+                    }
+                %>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">List Tutorial</h3>
+                                <div class="box-tools">
+                                    <a href="/adm/tutorial/details/0"><button type="button" class="btn btn-block btn-primary btn-sm">Add</button></a>
+                                </div>
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body no-padding">
+                                <table class="table table-striped">
+                                    <tbody>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Title</th>
+                                            <th>Time</th>
+                                            <th>Thumbnail</th>
+                                            <th>Author</th>
+                                            <th>Highlight</th>
+                                            <th>Status</th>
+                                            <th>Tag</th>
+                                            <th>Group</th>
+                                        </tr>
+                                        <% content.forEach(tmpTutorial => { %>
+                                            <tr>
+                                                <td>
+                                                    <%=tmpTutorial.id%> | 
+                                                    <a href="/adm/tutorial/details/<%=tmpTutorial.id%>"><i class="fa fa-edit"></i></a> | 
+                                                    <a href="/adm/tutorial/delete/<%=tmpTutorial.id%>" onclick="return confirm('Do you want to remove tutorial: <%=tmpTutorial.title%>')"><i class="fa fa-trash"></i></a>
+                                                </td>
+                                                <td><%=tmpTutorial.title%></td>
+                                                <td><%= moment(tmpTutorial.time).format('DD-MM-YYYY HH:mm') %></td>
+                                                <td> <img src="<%=tmpTutorial.thumbnail%>" style="width: 80px; height: 46px;" title="image size (800x460)"></td>
+                                                <td><%=tmpTutorial.author%></td>
+                                                <td><%=(tmpTutorial.highlight)?"Highlight":"" %></td>
+                                                <td><%=(tmpTutorial.status)?"Active":"" %></td>
+                                                <td><%=tmpTutorial.tag%></td>
+                                                <td><%=tmpTutorial.group%></td>
+                                            </tr>
+                                        <% }); %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+        <% include ./partials/footer %>
+    </div>
+    <!-- ./wrapper -->
+    <% include ./partials/static_footer %>
+</body>
+
+</html>

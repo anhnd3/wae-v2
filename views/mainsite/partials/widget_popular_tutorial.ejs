@@ -1,0 +1,22 @@
+<div class="widget">
+    <h5 class="widget-title font-alt">Hướng dẫn mới nhất</h5>
+    <ul class="widget-posts">
+        <%
+        const tutorials = (locals.tutorials)?locals.tutorials:[];
+        tutorials.forEach(tutorial => { %>
+            <li class="clearfix">
+                <div class="widget-posts-image">
+                    <a href="/tutorial/<%=tutorial.id%>">
+                        <img src="<%=(tutorial.thumbnail)?tutorial.thumbnail:''%>" alt="<%=(tutorial.title)?tutorial.title:''%>" />
+                    </a>
+                </div>
+                <div class="widget-posts-body">
+                    <div class="widget-posts-title">
+                        <a href="/tutorial/<%=tutorial.id%>"><%=(tutorial.title)?tutorial.title:''%></a>
+                    </div>
+                    <div class="widget-posts-meta"><%=(tutorial.author)?tutorial.author:''%></div>
+                </div>
+            </li>
+        <% }); %>
+    </ul>
+</div>

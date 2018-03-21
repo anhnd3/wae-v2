@@ -335,6 +335,53 @@ module.exports = (app, pool) => {
         }
         res.redirect('/adm/config/news');
     });
+
+    app.get('/adm/config/tutorial', requireLogin, (req, res) => {
+        try {
+            pool.query(
+                'SELECT * FROM `layout_config` WHERE `path` = ?',
+                '/tutorial',
+                (err, result) => {
+                    if (err) {
+                        console.log(err);
+                        res.redirect('/adm');
+                    } else {
+                        if (result.length > 0) {
+                            res.render('admin/config_tutorial', { config: result[0] });
+                        } else {
+                            res.render('admin/config_tutorial', { config: {} });
+                        }
+                    }
+                });
+        } catch (err) {
+            console.log('exception: ' + err);
+            res.redirect('/adm');
+        }
+    });
+
+    app.post('/adm/config/tutorial', requireLogin, (req, res) => {
+        try {
+            const data = {
+                path: '/tutorial',
+                content: JSON.stringify({
+                    pageTitle: req.body.pageTitle,
+                    tutorialImgBackground: req.body.tutorialImgBackground,
+                    tutorialBigText: req.body.tutorialBigText,
+                    tutorialSmallText: req.body.tutorialSmallText,
+                })
+            };
+
+            pool.query(
+                'INSERT INTO `layout_config` (`path`,`content`) VALUES (?,?) ON DUPLICATE KEY UPDATE `content` = ?',
+                [data.path, data.content, data.content],
+                (err, rows, fields) => {
+                    if (err) console.log(err);
+                });
+        } catch (e) {
+            console.log(e);
+        }
+        res.redirect('/adm/config/tutorial');
+    });
     // ===================================================================================
     // ===================================================================================
     // ================================== Teams Config ===================================
@@ -699,7 +746,7 @@ module.exports = (app, pool) => {
         res.redirect('/adm/news');
     });
 
-    app.get('/adm/courses/delete/:id', requireLogin, (req, res) => {
+    app.get('/adm/news/delete/:id', requireLogin, (req, res) => {
         const id = req.params.id;
         try {
             pool.query(
@@ -713,6 +760,101 @@ module.exports = (app, pool) => {
         }
         res.redirect('/adm/news');
     });
+    // ===================================================================================
+    // ===================================================================================
+    // =============================== Tutorial Config ===================================
+    // ===================================================================================
+    // ===================================================================================
+    app.get('/adm/tutorial', requireLogin, (req, res) => {
+        try {
+            async.parallel([
+                function (callback) {
+                    pool.query(
+                        'SELECT * FROM `tutorials`',
+                        callback);
+                }
+            ], function (err, results) {
+                if (err) {
+                    res.redirect('/adm');
+                }
+                const tutorial = results[0][0];
+                res.render('admin/tutorial', { tutorial:  tutorial, moment: moment });
+            });
+        } catch (err) {
+            console.log('exception: ' + err);
+            res.redirect('/adm');
+        }
+    });
+
+    app.get('/adm/tutorial/details/:id', requireLogin, (req, res) => {
+        const id = req.params.id;
+        try {
+            async.parallel([
+                function (callback) {
+                    pool.query(
+                        'SELECT * FROM `tutorials` WHERE `id` = ?',
+                        [id],
+                        callback);
+                }
+            ], function (err, results) {
+                if (err) {
+                    console.log(err);
+                    res.redirect('/adm/tutorial');
+                }
+                res.render('admin/tutorial_details', { tutorial: results[0][0][0] });
+            });
+        } catch (err) {
+            console.log('exception: ' + err);
+            res.redirect('/adm/news');
+        }
+    });
+
+    app.post('/adm/tutorial/details', requireLogin, (req, res) => {
+        try {
+            const data = {
+                id: (req.body.id) ? parseInt(req.body.id) : 0,
+                title: req.body.title,
+                author: req.body.author,
+                thumbnail: req.body.thumbnail,
+                shortDescription: req.body.shortDescription,
+                content: req.body.content,
+                highlight: (req.body.highlight === 'on') ? 1 : 0,
+                status: (req.body.status === 'on') ? 1 : 0,
+                tag: req.body.tag,
+                group: req.body.group
+            };
+
+            if (data.id === 0) {
+                data.time = new Date();
+            }
+
+            pool.query(
+                'INSERT INTO `tutorials` (`id`,`title`,`time`,`thumbnail`,`shortDescription`,`content`,`author`,`highlight`,`status`,`tag`,`group`) VALUES (?,?,?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE `title`=?,`thumbnail`=?,`shortDescription`=?,`content`=?,`author`=?,`highlight`=?,`status`=?,`tag`=?,`group`=?',
+                [data.id, data.title, data.time, data.thumbnail, data.shortDescription, data.content, data.author, data.highlight, data.status, data.tag, data.group, data.title, data.thumbnail, data.shortDescription, data.content, data.author, data.highlight, data.status, data.tag, data.group],
+                (err, rows, fields) => {
+                    if (err) console.log(err);
+                });
+        } catch (e) {
+            console.log(e);
+        }
+        res.redirect('/adm/tutorial');
+    });
+
+    app.get('/adm/tutorial/delete/:id', requireLogin, (req, res) => {
+        const id = req.params.id;
+        try {
+            pool.query(
+                'DELETE FROM `tutorials` WHERE `id` = ?',
+                [id],
+                (err, result) => {
+                    if (err) console.log(err);
+                });
+        } catch (err) {
+            console.log('exception: ' + err);
+        }
+        res.redirect('/adm/tutorial');
+    });
+
     // ===================================================================================
     // ===================================================================================
     // ================================== Admin Login ====================================

@@ -427,4 +427,114 @@ module.exports = (app, pool) => {
             console.log('exception: ' + err);
         }
     });
+
+    app.get('/tutorial', (req, res) => {
+        try {
+            async.parallel([
+                function (callback) {
+                    pool.query(
+                        'SELECT * FROM `layout_config` WHERE `path` = ?;',
+                        '/tutorial',
+                        callback);
+                },
+                function (callback) {
+                    pool.query(
+                        'SELECT * FROM `tutorials` ORDER BY `id` DESC LIMIT 0,5;',
+                        callback);
+                },
+                function (callback) {
+                    pool.query(
+                        'SELECT * FROM `layout_config` WHERE `path` = ?;',
+                        '/metaseo',
+                        callback);
+                }
+            ], function (err, results) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    const config = results[0][0];
+                    let tutorials = results[1][0];
+                    const header = results[2][0];
+
+                    const dataOutput = {
+                        config: config[0].content,
+                        header: header[0].content
+                    }
+
+                    tutorials = tutorials.map(tutorial => {
+                        tutorial.id = hashids.encode(tutorial.id);
+                        return tutorial;
+                    });
+
+                    dataOutput.tutorials = tutorials;
+                    res.render('mainsite/tutorial_listing', dataOutput);
+                }
+            });
+        } catch (err) {
+            console.log('exception: ' + err);
+        }
+    });
+
+    app.get('/tutorial/:tutorialId', (req, res) => {
+        let tutorialId = req.params.tutorialId;
+        tutorialId = hashids.decode(tutorialId);
+        try {
+            async.parallel([
+                function (callback) {
+                    pool.query(
+                        'SELECT * FROM `layout_config` WHERE `path` = ?;',
+                        '/tutorial',
+                        callback);
+                },
+                function (callback) {
+                    pool.query(
+                        'SELECT * FROM `tutorials` ORDER BY `id` DESC LIMIT 0,5;',
+                        callback);
+                },
+                function (callback) {
+                    pool.query(
+                        'SELECT * FROM `tutorials` WHERE `id`=?',
+                        newsId,
+                        callback);
+                },
+                function (callback) {
+                    pool.query(
+                        'SELECT * FROM `layout_config` WHERE `path` = ?;',
+                        '/metaseo',
+                        callback);
+                }
+            ], function (err, results) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    const config = results[0][0];
+                    let tutorials = results[1][0];
+                    let tutorial = results[2][0][0];
+                    const header = results[3][0];
+
+
+                    tutorials = tutorials.map(tutorial => {
+                        tutorial.id = hashids.encode(tutorial.id);
+                        return tutorial;
+                    });
+
+                    if (!tutorial || !tutorial.id) {
+                        res.redirect('/tutorial');
+                        return;
+                    }
+
+                    const dataOutput = {
+                        config: config[0].content,
+                        header: header[0].content,
+                        tutorials: tutorials,
+                        tutorial: tutorial
+                    }
+
+                    res.render('mainsite/tutorial_detail', dataOutput);
+                }
+            });
+        } catch (err) {
+            console.log('exception: ' + err);
+        }
+    });
 };
